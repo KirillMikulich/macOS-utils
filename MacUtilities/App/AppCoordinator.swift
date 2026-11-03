@@ -65,6 +65,7 @@ final class AppCoordinator {
         registry.register(QuitOnCloseModule(context: context))
         registry.register(ScreenshotToolModule(context: context))
         registry.register(UninstallerModule(context: context))
+        registry.register(FinderMenuModule(context: context))
     }
 
     func start() {

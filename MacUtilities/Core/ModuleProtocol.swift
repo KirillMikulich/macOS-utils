@@ -8,6 +8,7 @@ enum ModuleID: String, CaseIterable, Codable, Identifiable {
     case quitOnClose
     case uninstaller
     case screenshotTool
+    case finderMenu
 
     var id: String { rawValue }
 
@@ -21,6 +22,7 @@ enum ModuleID: String, CaseIterable, Codable, Identifiable {
         case .quitOnClose: return .orange
         case .screenshotTool: return .teal
         case .uninstaller: return .red
+        case .finderMenu: return .cyan
         }
     }
 }

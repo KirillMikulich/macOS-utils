@@ -1,6 +1,6 @@
 # Mac Utilities
 
-**English** · [Русский](README.md)
+**English** · [Русский](README.ru.md)
 
 An open-source set of macOS utilities in a single app. It lives in the menu bar, and each utility can be turned on separately. All source code is in this repository. Your data stays on your Mac; the app does not use the network.
 
@@ -39,6 +39,9 @@ Close an app's last window and the app quits, just like on Windows. Turn it on f
 ### Uninstaller
 Removes an app together with its settings, caches, containers and other files in Library. Shows what it found with sizes; everything goes to the Trash, so it can be restored.
 
+### Finder Menu
+Your own items in Finder’s right-click menu — on a file, a folder or an empty spot in a window: “Open in VS Code”, “Open in Terminal”, “Copy Path”, “New Text File”. Add “Open in …” for any app, rename items and choose where they appear. It works through a Finder extension — the first time, make sure it is turned on in System Settings → Login Items & Extensions → Extensions.
+
 ## Building from Source
 
 Open `MacUtilities.xcodeproj` in Xcode and run the **MacUtilities** scheme. The project uses the author's development team — to build on your Mac, select your own in Signing & Capabilities.
@@ -47,4 +50,5 @@ Open `MacUtilities.xcodeproj` in Xcode and run the **MacUtilities** scheme. The 
 
 - `MacUtilities/` — app source code
 - `MacUtilitiesTests/` — tests
+- `FinderMenuExtension/` — Finder extension for Finder Menu, `Shared/` — code shared with it
 - `Documentation/` — architecture, known limitations, manual test checklist
