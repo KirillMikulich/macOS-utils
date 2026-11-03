@@ -114,7 +114,7 @@ final class DockObserver {
 
     private func attach() {
         guard let dockApp = NSRunningApplication.runningApplications(withBundleIdentifier: "com.apple.dock").first else {
-            lastError = "Процесс Dock не найден"
+            lastError = L("Процесс Dock не найден")
             return
         }
         let pid = dockApp.processIdentifier
@@ -123,7 +123,7 @@ final class DockObserver {
         // ответа секундами — и весь главный поток Mac Utilities «висел» вместе с превью.
         AXUIElementSetMessagingTimeout(dockElement, 0.15)
         guard let list = AX.elements(dockElement, kAXChildrenAttribute).first(where: { AX.string($0, kAXRoleAttribute) == kAXListRole as String }) else {
-            lastError = "Не удалось получить список значков Dock (нет доступа Accessibility?)"
+            lastError = L("Не удалось получить список значков Dock (нет доступа Accessibility?)")
             Log.dock.error("Dock AXList not found")
             return
         }
@@ -135,13 +135,13 @@ final class DockObserver {
             MainActor.assumeIsolated { observer.selectionChanged() }
         }
         guard AXObserverCreate(pid, callback, &newObserver) == .success, let newObserver else {
-            lastError = "AXObserverCreate завершился ошибкой"
+            lastError = L("AXObserverCreate завершился ошибкой")
             return
         }
         let refcon = Unmanaged.passUnretained(self).toOpaque()
         let result = AXObserverAddNotification(newObserver, list, kAXSelectedChildrenChangedNotification as CFString, refcon)
         guard result == .success else {
-            lastError = "Не удалось подписаться на события Dock (код \(result.rawValue))"
+            lastError = L("Не удалось подписаться на события Dock (код \(result.rawValue))")
             Log.dock.error("AXObserverAddNotification failed: \(result.rawValue)")
             return
         }

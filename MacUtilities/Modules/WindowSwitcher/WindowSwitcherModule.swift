@@ -16,8 +16,8 @@ import SwiftUI
 @Observable
 final class WindowSwitcherModule: AppModule {
     let id = ModuleID.windowSwitcher
-    let title = "Переключение окон"
-    let summary = "Переключение между отдельными окнами (не только приложениями) с миниатюрами, как Alt+Tab."
+    var title: String { L("Переключение окон") }
+    var summary: String { L("Переключение между отдельными окнами (не только приложениями) с миниатюрами, как Alt+Tab.") }
     let systemImage = "macwindow.on.rectangle"
     let requiredPermissions: [PermissionKind] = [.accessibility]
     let optionalPermissions: [PermissionKind] = [.screenRecording]
@@ -60,8 +60,8 @@ final class WindowSwitcherModule: AppModule {
 
     var shortcuts: [ModuleShortcutInfo] {
         [
-            ModuleShortcutInfo(id: .switcherForward, title: "Следующее окно", combo: settings.forwardShortcut),
-            ModuleShortcutInfo(id: .switcherBackward, title: "Предыдущее окно", combo: settings.backwardShortcut),
+            ModuleShortcutInfo(id: .switcherForward, title: L("Следующее окно"), combo: settings.forwardShortcut),
+            ModuleShortcutInfo(id: .switcherBackward, title: L("Предыдущее окно"), combo: settings.backwardShortcut),
         ]
     }
 
@@ -97,11 +97,11 @@ final class WindowSwitcherModule: AppModule {
     }
 
     private func declareShortcuts(active: Bool) {
-        context.shortcuts.update(.switcherForward, title: "Переключение окон: следующее окно",
+        context.shortcuts.update(.switcherForward, title: L("Переключение окон: следующее окно"),
                                  combo: settings.forwardShortcut, active: active) { [weak self] in
             self?.handleTrigger(.forward)
         }
-        context.shortcuts.update(.switcherBackward, title: "Переключение окон: предыдущее окно",
+        context.shortcuts.update(.switcherBackward, title: L("Переключение окон: предыдущее окно"),
                                  combo: settings.backwardShortcut, active: active) { [weak self] in
             self?.handleTrigger(.backward)
         }

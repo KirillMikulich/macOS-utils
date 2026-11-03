@@ -51,11 +51,11 @@ enum ModuleRunState: Equatable {
 
     var title: String {
         switch self {
-        case .disabled: return "Выключен"
-        case .paused: return "Приостановлен"
-        case .running: return "Работает"
-        case .waitingForPermissions: return "Нужны разрешения"
-        case .failed: return "Ошибка"
+        case .disabled: return L("Выключен")
+        case .paused: return L("Приостановлен")
+        case .running: return L("Работает")
+        case .waitingForPermissions: return L("Нужны разрешения")
+        case .failed: return L("Ошибка")
         }
     }
 

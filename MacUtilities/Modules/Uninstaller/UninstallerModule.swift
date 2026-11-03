@@ -25,8 +25,8 @@ struct UninstallReport: Equatable {
 @Observable
 final class UninstallerModule: AppModule {
     let id = ModuleID.uninstaller
-    let title = "Удаление программ"
-    let summary = "Удаляет приложение вместе с настройками, кэшами и другими файлами — в Корзину."
+    var title: String { L("Удаление программ") }
+    var summary: String { L("Удаляет приложение вместе с настройками, кэшами и другими файлами — в Корзину.") }
     let systemImage = "xmark.bin"
     let requiredPermissions: [PermissionKind] = []
 
@@ -111,11 +111,11 @@ final class UninstallerModule: AppModule {
     func uninstall(_ app: AppBundleInfo, items: [LeftoverItem]) async -> UninstallReport {
         var report = UninstallReport()
         guard !app.isProtected else {
-            report.failed.append((app.url, "Системные приложения удалять нельзя"))
+            report.failed.append((app.url, L("Системные приложения удалять нельзя")))
             return report
         }
         guard await quitIfRunning(app) else {
-            report.failed.append((app.url, "Приложение не закрылось — закройте его и повторите"))
+            report.failed.append((app.url, L("Приложение не закрылось — закройте его и повторите")))
             return report
         }
         var needsFinder: [URL] = []
@@ -146,8 +146,8 @@ final class UninstallerModule: AppModule {
         var error: NSDictionary?
         NSAppleScript(source: source)?.executeAndReturnError(&error)
         guard let error else { return nil }
-        if (error[NSAppleScript.errorNumber] as? Int) == -128 { return "Отменено" }
-        return (error[NSAppleScript.errorMessage] as? String) ?? "Не удалось переместить в Корзину"
+        if (error[NSAppleScript.errorNumber] as? Int) == -128 { return L("Отменено") }
+        return (error[NSAppleScript.errorMessage] as? String) ?? L("Не удалось переместить в Корзину")
     }
 
     // MARK: - UI
@@ -157,6 +157,6 @@ final class UninstallerModule: AppModule {
     }
 
     func makeQuickSettingsView() -> AnyView {
-        AnyView(Text("Откройте раздел, чтобы выбрать приложение").font(.caption).foregroundStyle(.secondary))
+        AnyView(Text(L("Откройте раздел, чтобы выбрать приложение")).font(.caption).foregroundStyle(.secondary))
     }
 }

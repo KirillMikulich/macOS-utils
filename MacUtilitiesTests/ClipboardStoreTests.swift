@@ -90,7 +90,7 @@ final class ClipboardStoreTests: XCTestCase {
         store.add(TestSupport.textContent("https://example.com"))
         XCTAssertEqual(store.search("молоко").map(\.previewText), ["Купить молоко"])
         XCTAssertEqual(store.search("MEETING").count, 1, "поиск без учёта регистра")
-        XCTAssertEqual(store.search("Ссылка").count, 1, "поиск по типу элемента")
+        XCTAssertEqual(store.search(L("Ссылка")).count, 1, "поиск по типу элемента на текущем языке")
         XCTAssertEqual(store.search("").count, 3)
         XCTAssertTrue(store.search("nothing").isEmpty)
     }

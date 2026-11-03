@@ -85,7 +85,7 @@ private final class SelectionView: NSView {
         ctx.restoreGState()
 
         guard let selection else {
-            drawHint("Выделите область · ↩ — весь экран · Esc — отмена", at: CGPoint(x: bounds.midX, y: bounds.midY))
+            drawHint(L("Выделите область · ↩ — весь экран · Esc — отмена"), at: CGPoint(x: bounds.midX, y: bounds.midY))
             return
         }
         ctx.setStrokeColor(NSColor.white.cgColor)

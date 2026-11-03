@@ -13,41 +13,45 @@ struct GeneralSettingsView: View {
 
     var body: some View {
         Form {
-            Section("Запуск") {
-                Toggle("Запускать при входе в систему",
+            Section(L("Запуск")) {
+                Toggle(L("Запускать при входе в систему"),
                        isOn: Binding(get: { loginItem.isEnabled || loginItem.requiresApproval },
                                      set: { loginItem.setEnabled($0) }))
-                LabeledContent("Состояние", value: loginItem.statusDescription)
+                LabeledContent(L("Состояние"), value: loginItem.statusDescription)
                 if loginItem.requiresApproval {
-                    Button("Открыть «Объекты входа»") { loginItem.openSystemSettings() }
+                    Button(L("Открыть «Объекты входа»")) { loginItem.openSystemSettings() }
                 }
                 if let error = loginItem.lastError {
                     Label(error, systemImage: "exclamationmark.triangle").foregroundStyle(.orange)
                 }
-                Toggle("Открывать это окно при запуске", isOn: $appSettings.general.openMainWindowAtLaunch)
-                SettingsCaption(text: "Если выключено, приложение запускается в фоне — модули работают, окно не появляется.")
-                Toggle("Автоматически запускать включённые модули", isOn: $appSettings.general.restoreModulesOnLaunch)
-                SettingsCaption(text: "Если выключено, после запуска все модули на паузе до команды «Возобновить» в строке меню.")
+                Toggle(L("Открывать это окно при запуске"), isOn: $appSettings.general.openMainWindowAtLaunch)
+                SettingsCaption(text: L("Если выключено, приложение запускается в фоне — модули работают, окно не появляется."))
+                Toggle(L("Автоматически запускать включённые модули"), isOn: $appSettings.general.restoreModulesOnLaunch)
+                SettingsCaption(text: L("Если выключено, после запуска все модули на паузе до команды «Возобновить» в строке меню."))
             }
 
-            Section("Отображение") {
-                Toggle("Значок в строке меню", isOn: $appSettings.general.showMenuBarIcon)
-                Toggle("Значок в Dock", isOn: $appSettings.general.showDockIcon)
+            Section(L("Отображение")) {
+                Toggle(L("Значок в строке меню"), isOn: $appSettings.general.showMenuBarIcon)
+                Toggle(L("Значок в Dock"), isOn: $appSettings.general.showDockIcon)
                 if !appSettings.general.showMenuBarIcon && !appSettings.general.showDockIcon {
-                    SettingsCaption(text: "Оба значка скрыты. Чтобы открыть настройки, запустите Mac Utilities ещё раз из Finder или Launchpad.")
+                    SettingsCaption(text: L("Оба значка скрыты. Чтобы открыть настройки, запустите Mac Utilities ещё раз из Finder или Launchpad."))
                 }
-                Picker("Тема", selection: $appSettings.general.appearance) {
+                Picker(L("Тема"), selection: $appSettings.general.appearance) {
                     ForEach(AppearanceMode.allCases) { Text($0.title).tag($0) }
                 }
+                // Названия языков — на самих языках, чтобы найти переключатель при любом текущем.
+                Picker(appSettings.general.language == .english ? "Language" : L("Язык") + " · Language", selection: $appSettings.general.language) {
+                    ForEach(AppLanguage.allCases) { Text($0.nativeName).tag($0) }
+                }
             }
 
-            Section("Оформление панелей") {
+            Section(L("Оформление панелей")) {
                 OverlayStylePreview()
-                Picker("Тема", selection: $appSettings.general.overlay.theme) {
+                Picker(L("Тема"), selection: $appSettings.general.overlay.theme) {
                     ForEach(OverlayStyleSettings.Theme.allCases) { Text($0.title).tag($0) }
                 }
                 .pickerStyle(.segmented)
-                LabeledContent("Цвет выделения") {
+                LabeledContent(L("Цвет выделения")) {
                     HStack(spacing: 6) {
                         ForEach(OverlayStyleSettings.Accent.allCases) { accent in
                             Button { appSettings.general.overlay.accent = accent } label: {
@@ -61,32 +65,32 @@ struct GeneralSettingsView: View {
                         }
                     }
                 }
-                SliderField(title: "Скругление углов", value: $appSettings.general.overlay.cornerRadius,
+                SliderField(title: L("Скругление углов"), value: $appSettings.general.overlay.cornerRadius,
                             range: OverlayStyleSettings.cornerRadiusRange, step: 1, unit: "pt")
-                Toggle("Тень под панелями", isOn: $appSettings.general.overlay.shadow)
-                SettingsCaption(text: "Применяется к истории буфера, переключателю окон и превью в Dock.")
+                Toggle(L("Тень под панелями"), isOn: $appSettings.general.overlay.shadow)
+                SettingsCaption(text: L("Применяется к истории буфера, переключателю окон и превью в Dock."))
             }
 
-            Section("Модули") {
+            Section(L("Модули")) {
                 ForEach(coordinator.registry.modules, id: \.id) { module in
                     Toggle(module.title, isOn: Binding(get: { module.isEnabled }, set: { module.setEnabled($0) }))
                 }
-                Button(coordinator.registry.isPaused ? "Возобновить все модули" : "Приостановить все модули") {
+                Button(coordinator.registry.isPaused ? L("Возобновить все модули") : L("Приостановить все модули")) {
                     coordinator.registry.setPaused(!coordinator.registry.isPaused)
                 }
             }
 
-            Section("Данные") {
-                LabeledContent("Папка данных") {
-                    Button("Показать в Finder") {
+            Section(L("Данные")) {
+                LabeledContent(L("Папка данных")) {
+                    Button(L("Показать в Finder")) {
                         NSWorkspace.shared.activateFileViewerSelecting([AppPaths.supportDirectory])
                     }
                 }
-                SettingsCaption(text: "Настройки и история хранятся только на этом Mac в ~/Library/Application Support/Mac Utilities. Приложение не использует сеть.")
+                SettingsCaption(text: L("Настройки и история хранятся только на этом Mac в ~/Library/Application Support/Mac Utilities. Приложение не использует сеть."))
             }
 
             Section {
-                Button("Завершить Mac Utilities", role: .destructive) { NSApp.terminate(nil) }
+                Button(L("Завершить Mac Utilities"), role: .destructive) { NSApp.terminate(nil) }
             }
         }
         .formStyle(.grouped)

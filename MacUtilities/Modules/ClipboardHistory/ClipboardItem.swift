@@ -11,12 +11,12 @@ enum ClipboardKind: String, Codable, CaseIterable {
 
     var title: String {
         switch self {
-        case .text: return "Текст"
-        case .richText: return "Форматированный текст"
-        case .link: return "Ссылка"
-        case .image: return "Изображение"
-        case .files: return "Файлы"
-        case .other: return "Другое"
+        case .text: return L("Текст")
+        case .richText: return L("Форматированный текст")
+        case .link: return L("Ссылка")
+        case .image: return L("Изображение")
+        case .files: return L("Файлы")
+        case .other: return L("Другое")
         }
     }
 

@@ -6,9 +6,9 @@ enum AppearanceMode: String, Codable, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .system: return "Как в системе"
-        case .light: return "Светлая"
-        case .dark: return "Тёмная"
+        case .system: return L("Как в системе")
+        case .light: return L("Светлая")
+        case .dark: return L("Тёмная")
         }
     }
 
@@ -36,4 +36,6 @@ struct GeneralSettings: PersistedSettings {
     var appearance: AppearanceMode = .system
     /// Оформление плавающих панелей (буфер, переключатель окон, превью в Dock).
     var overlay = OverlayStyleSettings()
+    /// Язык интерфейса; по умолчанию английский.
+    var language: AppLanguage = .english
 }

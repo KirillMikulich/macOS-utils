@@ -185,11 +185,11 @@ final class ScreenshotDocument {
     func save(in folder: URL) throws -> URL {
         try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd 'в' HH.mm.ss"
-        var url = folder.appendingPathComponent("Снимок Mac Utilities \(formatter.string(from: Date())).png")
+        formatter.dateFormat = L("yyyy-MM-dd 'в' HH.mm.ss")
+        var url = folder.appendingPathComponent(L("Снимок Mac Utilities \(formatter.string(from: Date())).png"))
         var index = 2
         while FileManager.default.fileExists(atPath: url.path) {
-            url = folder.appendingPathComponent("Снимок Mac Utilities \(formatter.string(from: Date())) (\(index)).png")
+            url = folder.appendingPathComponent(L("Снимок Mac Utilities \(formatter.string(from: Date())) (\(index)).png"))
             index += 1
         }
         try save(to: url)

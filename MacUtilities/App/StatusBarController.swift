@@ -41,17 +41,17 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         statusItem?.button?.image = image
         // На паузе значок приглушён.
         statusItem?.button?.appearsDisabled = paused
-        statusItem?.button?.toolTip = paused ? "Mac Utilities — приостановлен" : "Mac Utilities"
+        statusItem?.button?.toolTip = paused ? L("Mac Utilities — приостановлен") : "Mac Utilities"
     }
 
     // Меню собирается заново при каждом открытии — так состояние всегда актуально.
     func menuNeedsUpdate(_ menu: NSMenu) {
         menu.removeAllItems()
 
-        menu.addItem(item("Открыть Mac Utilities…", #selector(openMain)))
+        menu.addItem(item(L("Открыть Mac Utilities…"), #selector(openMain)))
         menu.addItem(.separator())
 
-        let header = NSMenuItem(title: "Модули", action: nil, keyEquivalent: "")
+        let header = NSMenuItem(title: L("Модули"), action: nil, keyEquivalent: "")
         header.isEnabled = false
         menu.addItem(header)
         for module in coordinator.registry.modules {
@@ -68,19 +68,19 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         menu.addItem(.separator())
 
         if let clipboard = coordinator.registry.module(.clipboardHistory) as? ClipboardHistoryModule {
-            let show = item("Показать историю буфера", #selector(showClipboard))
+            let show = item(L("Показать историю буфера"), #selector(showClipboard))
             show.isEnabled = clipboard.runState == .running
             if let combo = clipboard.settings.shortcut { show.title += "  \(combo.displayString)" }
             menu.addItem(show)
-            let privateItem = item("Режим приватности буфера", #selector(togglePrivate))
+            let privateItem = item(L("Режим приватности буфера"), #selector(togglePrivate))
             privateItem.state = clipboard.settings.privateMode ? .on : .off
             menu.addItem(privateItem)
         }
 
-        let pause = item(coordinator.registry.isPaused ? "Возобновить все модули" : "Приостановить все модули", #selector(togglePause))
+        let pause = item(coordinator.registry.isPaused ? L("Возобновить все модули") : L("Приостановить все модули"), #selector(togglePause))
         menu.addItem(pause)
         menu.addItem(.separator())
-        menu.addItem(item("Выйти из Mac Utilities", #selector(quit), key: "q"))
+        menu.addItem(item(L("Выйти из Mac Utilities"), #selector(quit), key: "q"))
     }
 
     private func item(_ title: String, _ action: Selector, key: String = "") -> NSMenuItem {

@@ -17,24 +17,24 @@ struct ShortcutRecorder: View {
         VStack(alignment: .trailing, spacing: 4) {
             HStack(spacing: 6) {
                 Button(action: toggleRecording) {
-                    Text(isRecording ? "Нажмите сочетание…" : (combo?.displayString ?? "Не назначено"))
+                    Text(isRecording ? L("Нажмите сочетание…") : (combo?.displayString ?? L("Не назначено")))
                         .frame(minWidth: 110)
                         .monospaced(!isRecording && combo != nil)
                 }
                 .buttonStyle(.bordered)
                 .tint(isRecording ? .accentColor : nil)
-                .help("Нажмите, затем введите новое сочетание. Esc — отмена, ⌫ — очистить.")
+                .help(L("Нажмите, затем введите новое сочетание. Esc — отмена, ⌫ — очистить."))
 
                 if combo != nil && !isRecording {
                     Button { combo = nil } label: { Image(systemName: "xmark.circle.fill") }
                         .buttonStyle(.borderless)
                         .foregroundStyle(.secondary)
-                        .help("Убрать сочетание")
+                        .help(L("Убрать сочетание"))
                 }
                 if let defaultCombo, defaultCombo != combo, !isRecording {
                     Button { combo = defaultCombo } label: { Image(systemName: "arrow.uturn.backward") }
                         .buttonStyle(.borderless)
-                        .help("Вернуть по умолчанию (\(defaultCombo.displayString))")
+                        .help(L("Вернуть по умолчанию (\(defaultCombo.displayString))"))
                 }
             }
             let status = manager.status(for: id)

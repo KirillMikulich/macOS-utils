@@ -136,14 +136,14 @@ final class ScrollWheelInterceptor: @unchecked Sendable {
         guard let tap = CGEvent.tapCreate(tap: .cgAnnotatedSessionEventTap, place: .tailAppendEventTap, options: .defaultTap,
                                           eventsOfInterest: mask, callback: callback,
                                           userInfo: Unmanaged.passUnretained(self).toOpaque()) else {
-            lastError = "Не удалось перехватить колесо мыши — проверьте доступ «Универсальный доступ»"
+            lastError = L("Не удалось перехватить колесо мыши — проверьте доступ «Универсальный доступ»")
             return false
         }
         self.tap = tap
         guard createDisplayLink() else {
             CFMachPortInvalidate(tap)
             self.tap = nil
-            lastError = "Не удалось запустить анимацию прокрутки"
+            lastError = L("Не удалось запустить анимацию прокрутки")
             return false
         }
 

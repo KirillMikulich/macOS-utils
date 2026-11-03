@@ -9,8 +9,8 @@ enum QuitOnCloseMode: String, Codable, CaseIterable, Identifiable {
     var id: String { rawValue }
     var title: String {
         switch self {
-        case .allExceptExcluded: return "Все приложения, кроме исключений"
-        case .onlySelected: return "Только выбранные приложения"
+        case .allExceptExcluded: return L("Все приложения, кроме исключений")
+        case .onlySelected: return L("Только выбранные приложения")
         }
     }
 }
@@ -47,8 +47,8 @@ struct QuitOnCloseSettings: PersistedSettings {
 @Observable
 final class QuitOnCloseModule: AppModule {
     let id = ModuleID.quitOnClose
-    let title = "Автовыход"
-    let summary = "Приложение завершается, когда закрыто его последнее окно (красная кнопка или ⌘W)."
+    var title: String { L("Автовыход") }
+    var summary: String { L("Приложение завершается, когда закрыто его последнее окно (красная кнопка или ⌘W).") }
     let systemImage = "rectangle.portrait.and.arrow.right"
     let requiredPermissions: [PermissionKind] = [.accessibility]
 
@@ -115,33 +115,33 @@ struct QuitOnCloseSettingsView: View {
     var body: some View {
         let permissions = module.context.permissions
         Form {
-            Section("Основное") {
-                Toggle("Завершать приложение, когда закрыто его последнее окно",
+            Section(L("Основное")) {
+                Toggle(L("Завершать приложение, когда закрыто его последнее окно"),
                        isOn: Binding(get: { module.isEnabled }, set: { module.setEnabled($0) }))
                 if module.isEnabled && !permissions.isGranted(.accessibility) {
                     PermissionBanner(kind: .accessibility, permissions: permissions)
                 }
-                SettingsCaption(text: "Как в Windows: закрыли последнее окно красной кнопкой или ⌘W — приложение завершается. Несохранённые документы приложение предложит сохранить само. Если у приложения есть окна на другом рабочем столе или свёрнутые окна, оно не завершается.")
-                SettingsCaption(text: "Кнопки на миниатюрах в превью Dock и переключателе окон: ✕ закрывает только это окно, ⏻ сразу завершает приложение со всеми окнами. Если окно последнее, ✕ становится оранжевым — после закрытия приложение завершится.")
+                SettingsCaption(text: L("Как в Windows: закрыли последнее окно красной кнопкой или ⌘W — приложение завершается. Несохранённые документы приложение предложит сохранить само. Если у приложения есть окна на другом рабочем столе или свёрнутые окна, оно не завершается."))
+                SettingsCaption(text: L("Кнопки на миниатюрах в превью Dock и переключателе окон: ✕ закрывает только это окно, ⏻ сразу завершает приложение со всеми окнами. Если окно последнее, ✕ становится оранжевым — после закрытия приложение завершится."))
                 if let app = module.lastQuitApp {
-                    LabeledContent("Последнее завершённое", value: app)
+                    LabeledContent(L("Последнее завершённое"), value: app)
                 }
             }
-            Section("Какие приложения") {
-                Picker("Режим", selection: $module.settings.mode) {
+            Section(L("Какие приложения")) {
+                Picker(L("Режим"), selection: $module.settings.mode) {
                     ForEach(QuitOnCloseMode.allCases) { Text($0.title).tag($0) }
                 }
                 switch module.settings.mode {
                 case .allExceptExcluded:
-                    LabeledContent("Не завершать") {
+                    LabeledContent(L("Не завершать")) {
                         AppExclusionEditor(bundleIDs: $module.settings.excludedBundleIDs)
                     }
                 case .onlySelected:
-                    LabeledContent("Завершать только") {
-                        AppExclusionEditor(bundleIDs: $module.settings.selectedBundleIDs, emptyText: "Приложения не выбраны")
+                    LabeledContent(L("Завершать только")) {
+                        AppExclusionEditor(bundleIDs: $module.settings.selectedBundleIDs, emptyText: L("Приложения не выбраны"))
                     }
                 }
-                SettingsCaption(text: "Finder и Mac Utilities не завершаются никогда. Приложения, которые работают без окон (плееры, мессенджеры в фоне), лучше добавить в исключения.")
+                SettingsCaption(text: L("Finder и Mac Utilities не завершаются никогда. Приложения, которые работают без окон (плееры, мессенджеры в фоне), лучше добавить в исключения."))
             }
         }
         .formStyle(.grouped)
@@ -152,7 +152,7 @@ struct QuitOnCloseQuickSettingsView: View {
     @Bindable var module: QuitOnCloseModule
 
     var body: some View {
-        Picker("Режим", selection: $module.settings.mode) {
+        Picker(L("Режим"), selection: $module.settings.mode) {
             ForEach(QuitOnCloseMode.allCases) { Text($0.title).tag($0) }
         }
     }

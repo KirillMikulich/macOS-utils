@@ -35,7 +35,7 @@ struct UninstallerView: View {
 
     private var appList: some View {
         VStack(spacing: 0) {
-            TextField("Поиск приложений", text: $query)
+            TextField(L("Поиск приложений"), text: $query)
                 .textFieldStyle(.roundedBorder)
                 .padding(10)
             List(filteredApps, id: \.bundleID, selection: Binding(
@@ -49,11 +49,11 @@ struct UninstallerView: View {
             }
             .listStyle(.sidebar)
             HStack {
-                Button("Выбрать .app…", action: chooseApp)
+                Button(L("Выбрать .app…"), action: chooseApp)
                 Spacer()
                 Button { Task { await reloadApps() } } label: { Image(systemName: "arrow.clockwise") }
                     .buttonStyle(.borderless)
-                    .help("Обновить список")
+                    .help(L("Обновить список"))
             }
             .padding(10)
         }
@@ -75,7 +75,7 @@ struct UninstallerView: View {
                     Image(nsImage: app.icon).resizable().frame(width: 56, height: 56)
                     VStack(alignment: .leading, spacing: 2) {
                         Text(app.name).font(.title2.weight(.semibold))
-                        Text([app.bundleID, app.version.map { "версия \($0)" }].compactMap { $0 }.joined(separator: " · "))
+                        Text([app.bundleID, app.version.map { L("версия \($0)") }].compactMap { $0 }.joined(separator: " · "))
                             .font(.caption).foregroundStyle(.secondary)
                         Text(app.url.path).font(.caption).foregroundStyle(.secondary).lineLimit(1).truncationMode(.middle)
                     }
@@ -86,9 +86,9 @@ struct UninstallerView: View {
                     HStack(alignment: .top) {
                         Image(systemName: "info.circle.fill").foregroundStyle(.blue)
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("Без «Полного доступа к диску» часть файлов может быть не видна, а macOS будет отдельно спрашивать доступ к данным других приложений.")
+                            Text(L("Без «Полного доступа к диску» часть файлов может быть не видна, а macOS будет отдельно спрашивать доступ к данным других приложений."))
                                 .font(.caption)
-                            Button("Открыть настройки доступа") { module.openFullDiskAccessSettings() }.controlSize(.small)
+                            Button(L("Открыть настройки доступа")) { module.openFullDiskAccessSettings() }.controlSize(.small)
                         }
                     }
                     .padding(8)
@@ -96,7 +96,7 @@ struct UninstallerView: View {
                 }
 
                 if isScanning {
-                    ProgressView("Поиск файлов…").frame(maxWidth: .infinity, maxHeight: .infinity)
+                    ProgressView(L("Поиск файлов…")).frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
                     leftoverList(app)
                 }
@@ -106,32 +106,32 @@ struct UninstallerView: View {
                 }
 
                 HStack {
-                    Text("Будет перемещено в Корзину: \(selectedCount + 1) объект(ов), \(ByteCountFormatter.string(fromByteCount: totalSize, countStyle: .file))")
+                    Text(L("Будет перемещено в Корзину: \(selectedCount + 1) объект(ов), \(ByteCountFormatter.string(fromByteCount: totalSize, countStyle: .file))"))
                         .font(.callout)
                     Spacer()
-                    Button("Удалить в Корзину", role: .destructive) { confirm = true }
+                    Button(L("Удалить в Корзину"), role: .destructive) { confirm = true }
                         .keyboardShortcut(.delete, modifiers: .command)
                         .disabled(isRemoving || isScanning)
                 }
             }
             .padding(16)
-            .confirmationDialog("Переместить «\(app.name)» и выбранные файлы в Корзину?", isPresented: $confirm) {
-                Button("Переместить в Корзину", role: .destructive) { remove(app) }
+            .confirmationDialog(L("Переместить «\(app.name)» и выбранные файлы в Корзину?"), isPresented: $confirm) {
+                Button(L("Переместить в Корзину"), role: .destructive) { remove(app) }
             } message: {
                 Text(NSRunningApplication.runningApplications(withBundleIdentifier: app.bundleID).isEmpty
-                     ? "Файлы можно будет вернуть из Корзины."
-                     : "Приложение запущено — оно будет закрыто. Файлы можно будет вернуть из Корзины.")
+                     ? L("Файлы можно будет вернуть из Корзины.")
+                     : L("Приложение запущено — оно будет закрыто. Файлы можно будет вернуть из Корзины."))
             }
         } else {
-            ContentUnavailableView("Выберите приложение",
+            ContentUnavailableView(L("Выберите приложение"),
                                    systemImage: "trash.square",
-                                   description: Text("Выберите программу в списке или перетащите .app сюда. Mac Utilities найдёт её настройки, кэши и другие файлы."))
+                                   description: Text(L("Выберите программу в списке или перетащите .app сюда. Mac Utilities найдёт её настройки, кэши и другие файлы.")))
         }
     }
 
     private func leftoverList(_ app: AppBundleInfo) -> some View {
         List {
-            Section("Приложение") {
+            Section(L("Приложение")) {
                 HStack {
                     Image(systemName: "checkmark.square.fill").foregroundStyle(.secondary)
                     Text(app.url.lastPathComponent)
@@ -140,7 +140,7 @@ struct UninstallerView: View {
                         .foregroundStyle(.secondary).monospacedDigit()
                 }
             }
-            Section(leftovers.isEmpty ? "Связанные файлы не найдены" : "Связанные файлы (\(leftovers.count))") {
+            Section(leftovers.isEmpty ? L("Связанные файлы не найдены") : L("Связанные файлы (\(leftovers.count))")) {
                 ForEach($leftovers) { $item in
                     HStack(alignment: .firstTextBaseline) {
                         Toggle("", isOn: $item.isSelected).labelsHidden()
@@ -150,7 +150,7 @@ struct UninstallerView: View {
                             HStack(spacing: 6) {
                                 Text(item.category)
                                 Text("· \(item.match.title)")
-                                if item.isSystemWide { Text("· может потребоваться пароль") }
+                                if item.isSystemWide { Text(L("· может потребоваться пароль")) }
                             }
                             .font(.caption).foregroundStyle(item.match == .bundleID ? Color.secondary : Color.orange)
                         }
@@ -159,7 +159,7 @@ struct UninstallerView: View {
                             .foregroundStyle(.secondary).monospacedDigit()
                         Button { NSWorkspace.shared.activateFileViewerSelecting([item.url]) } label: { Image(systemName: "magnifyingglass") }
                             .buttonStyle(.borderless)
-                            .help("Показать в Finder")
+                            .help(L("Показать в Finder"))
                     }
                 }
             }
@@ -169,7 +169,7 @@ struct UninstallerView: View {
 
     private func reportView(_ report: UninstallReport) -> some View {
         VStack(alignment: .leading, spacing: 4) {
-            Label("Перемещено в Корзину: \(report.trashed.count)", systemImage: "checkmark.circle.fill")
+            Label(L("Перемещено в Корзину: \(report.trashed.count)"), systemImage: "checkmark.circle.fill")
                 .foregroundStyle(.green)
             ForEach(report.failed, id: \.url) { failure in
                 Label("\(failure.url.lastPathComponent): \(failure.reason)", systemImage: "exclamationmark.triangle.fill")
@@ -206,7 +206,7 @@ struct UninstallerView: View {
         leftovers = []
         appSize = nil
         guard !app.isProtected else {
-            report = UninstallReport(failed: [(app.url, "Системные приложения Apple защищены macOS и не удаляются")])
+            report = UninstallReport(failed: [(app.url, L("Системные приложения Apple защищены macOS и не удаляются"))])
             return
         }
         isScanning = true

@@ -11,15 +11,15 @@ struct PermissionBanner: View {
             Image(systemName: isRequired ? "exclamationmark.triangle.fill" : "info.circle.fill")
                 .foregroundStyle(isRequired ? .orange : .blue)
             VStack(alignment: .leading, spacing: 4) {
-                Text(isRequired ? "Требуется: \(kind.title)" : "Рекомендуется: \(kind.title)")
+                Text(isRequired ? L("Требуется: \(kind.title)") : L("Рекомендуется: \(kind.title)"))
                     .font(.callout.weight(.semibold))
                 Text(kind.purpose)
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
                 HStack {
-                    Button("Открыть настройки") { permissions.request(kind) }
-                    Button("Проверить снова") { permissions.refresh() }
+                    Button(L("Открыть настройки")) { permissions.request(kind) }
+                    Button(L("Проверить снова")) { permissions.refresh() }
                 }
                 .controlSize(.small)
                 .padding(.top, 2)

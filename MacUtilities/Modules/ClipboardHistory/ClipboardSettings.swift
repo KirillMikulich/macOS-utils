@@ -9,8 +9,8 @@ enum ClipboardSelectionAction: String, Codable, CaseIterable, Identifiable {
     var id: String { rawValue }
     var title: String {
         switch self {
-        case .copyToClipboard: return "Только скопировать в буфер (вставка — ⌘V)"
-        case .copyAndPaste: return "Сразу вставить в активное приложение"
+        case .copyToClipboard: return L("Только скопировать в буфер (вставка — ⌘V)")
+        case .copyAndPaste: return L("Сразу вставить в активное приложение")
         }
     }
 }
@@ -20,8 +20,8 @@ enum ClipboardPanelPosition: String, Codable, CaseIterable, Identifiable {
     var id: String { rawValue }
     var title: String {
         switch self {
-        case .nearMouse: return "Рядом с курсором"
-        case .screenCenter: return "По центру экрана"
+        case .nearMouse: return L("Рядом с курсором")
+        case .screenCenter: return L("По центру экрана")
         }
     }
 }

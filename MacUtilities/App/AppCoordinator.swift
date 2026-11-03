@@ -53,6 +53,8 @@ final class AppCoordinator {
 
     init() {
         appSettings = AppSettingsModel(store: settingsStore)
+        // Язык — до построения меню и окон.
+        Localization.shared.language = appSettings.general.language
         context = ModuleContext(settingsStore: settingsStore, shortcuts: shortcuts, permissions: permissions)
         registry = ModuleRegistry(context: context)
 
@@ -126,6 +128,11 @@ final class AppCoordinator {
         }
         if old?.appearance != general.appearance {
             NSApp.appearance = general.appearance.nsAppearance
+        }
+        if old?.language != general.language {
+            Localization.shared.language = general.language
+            // Окна и панели перерисуются сами; главное меню AppKit собирается заново.
+            if old != nil { NSApp.mainMenu = MainMenuBuilder.build() }
         }
     }
 }

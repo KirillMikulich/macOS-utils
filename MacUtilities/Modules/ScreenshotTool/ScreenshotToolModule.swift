@@ -21,9 +21,9 @@ enum ScreenshotAfterCapture: String, Codable, CaseIterable, Identifiable {
     var id: String { rawValue }
     var title: String {
         switch self {
-        case .openEditor: return "Открыть редактор"
-        case .copyToClipboard: return "Сразу скопировать в буфер"
-        case .copyAndSave: return "Скопировать в буфер и сохранить в папку"
+        case .openEditor: return L("Открыть редактор")
+        case .copyToClipboard: return L("Сразу скопировать в буфер")
+        case .copyAndSave: return L("Скопировать в буфер и сохранить в папку")
         }
     }
 }
@@ -50,8 +50,8 @@ struct ScreenshotToolSettings: PersistedSettings {
 @Observable
 final class ScreenshotToolModule: AppModule {
     let id = ModuleID.screenshotTool
-    let title = "Снимок экрана"
-    let summary = "Снимок области экрана с редактором: текст, стрелки, фигуры, маркер, размытие, обрезка."
+    var title: String { L("Снимок экрана") }
+    var summary: String { L("Снимок области экрана с редактором: текст, стрелки, фигуры, маркер, размытие, обрезка.") }
     let systemImage = "camera.viewfinder"
     let requiredPermissions: [PermissionKind] = [.screenRecording]
 
@@ -85,7 +85,7 @@ final class ScreenshotToolModule: AppModule {
     }
 
     var shortcuts: [ModuleShortcutInfo] {
-        [ModuleShortcutInfo(id: .screenshotCapture, title: "Снимок области", combo: settings.shortcut)]
+        [ModuleShortcutInfo(id: .screenshotCapture, title: L("Снимок области"), combo: settings.shortcut)]
     }
 
     var saveFolder: URL {
@@ -101,7 +101,7 @@ final class ScreenshotToolModule: AppModule {
     }
 
     private func declareShortcut(active: Bool) {
-        context.shortcuts.update(.screenshotCapture, title: "Снимок экрана: снимок области", combo: settings.shortcut, active: active) { [weak self] in
+        context.shortcuts.update(.screenshotCapture, title: L("Снимок экрана: снимок области"), combo: settings.shortcut, active: active) { [weak self] in
             self?.startCapture()
         }
     }
@@ -116,7 +116,7 @@ final class ScreenshotToolModule: AppModule {
     func startCapture() {
         guard !isCapturing else { return }
         guard context.permissions.isGranted(.screenRecording) || CGPreflightScreenCaptureAccess() else {
-            lastError = "Нет разрешения «Запись экрана»"
+            lastError = L("Нет разрешения «Запись экрана»")
             context.permissions.request(.screenRecording)
             return
         }
@@ -146,7 +146,7 @@ final class ScreenshotToolModule: AppModule {
                     self.handleCaptured(cropped, pointsPerPixel: 1 / screen.backingScaleFactor, previousApp: previousApp)
                 }
             } catch {
-                lastError = "Не удалось сделать снимок: \(error.localizedDescription)"
+                lastError = L("Не удалось сделать снимок: \(error.localizedDescription)")
                 Log.app.error("Screenshot capture failed: \(error.localizedDescription, privacy: .public)")
             }
         }
@@ -175,11 +175,11 @@ final class ScreenshotToolModule: AppModule {
     /// Снимок всего экрана в полном разрешении (всё, что видно на экране).
     private static func captureScreen(_ screen: NSScreen) async throws -> CGImage {
         guard let displayID = screen.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? CGDirectDisplayID else {
-            throw ModuleError.startFailed("Не удалось определить экран")
+            throw ModuleError.startFailed(L("Не удалось определить экран"))
         }
         let content = try await SCShareableContent.excludingDesktopWindows(false, onScreenWindowsOnly: true)
         guard let display = content.displays.first(where: { $0.displayID == displayID }) else {
-            throw ModuleError.startFailed("Экран не найден")
+            throw ModuleError.startFailed(L("Экран не найден"))
         }
         // В снимок попадает всё, что видно на экране, включая окна Mac Utilities (редактор,
         // настройки) — иначе на их месте оказывалось то, что под ними. Плавающие панели
@@ -211,37 +211,37 @@ struct ScreenshotToolSettingsView: View {
     var body: some View {
         let permissions = module.context.permissions
         Form {
-            Section("Основное") {
-                Toggle("Включить «Снимок экрана»", isOn: Binding(get: { module.isEnabled }, set: { module.setEnabled($0) }))
+            Section(L("Основное")) {
+                Toggle(L("Включить «Снимок экрана»"), isOn: Binding(get: { module.isEnabled }, set: { module.setEnabled($0) }))
                 if module.isEnabled && !permissions.isGranted(.screenRecording) {
                     PermissionBanner(kind: .screenRecording, permissions: permissions)
                 }
-                LabeledContent("Снимок области") {
+                LabeledContent(L("Снимок области")) {
                     ShortcutRecorder(id: .screenshotCapture, combo: $module.settings.shortcut,
                                      defaultCombo: ScreenshotToolSettings.defaultValue.shortcut, manager: module.context.shortcuts)
                 }
-                Button("Сделать снимок сейчас") { module.startCapture() }
+                Button(L("Сделать снимок сейчас")) { module.startCapture() }
                     .disabled(module.runState != .running)
                 if let error = module.lastError {
                     Label(error, systemImage: "exclamationmark.triangle").foregroundStyle(.orange)
                 }
-                SettingsCaption(text: "Выделите область мышью (↩ — весь экран, Esc — отмена). Снимается экран, на котором курсор. Снимки не загружаются в интернет.")
+                SettingsCaption(text: L("Выделите область мышью (↩ — весь экран, Esc — отмена). Снимается экран, на котором курсор. Снимки не загружаются в интернет."))
             }
-            Section("После выделения") {
-                Picker("Действие", selection: $module.settings.afterCapture) {
+            Section(L("После выделения")) {
+                Picker(L("Действие"), selection: $module.settings.afterCapture) {
                     ForEach(ScreenshotAfterCapture.allCases) { Text($0.title).tag($0) }
                 }
-                Toggle("Закрывать редактор после «Копировать» (⌘C)", isOn: $module.settings.closeEditorAfterCopy)
-                LabeledContent("Папка для сохранения") {
+                Toggle(L("Закрывать редактор после «Копировать» (⌘C)"), isOn: $module.settings.closeEditorAfterCopy)
+                LabeledContent(L("Папка для сохранения")) {
                     HStack {
                         Text(module.saveFolder.path.replacingOccurrences(of: NSHomeDirectory(), with: "~"))
                             .lineLimit(1).truncationMode(.middle).foregroundStyle(.secondary)
-                        Button("Изменить…", action: chooseFolder)
+                        Button(L("Изменить…"), action: chooseFolder)
                     }
                 }
             }
-            Section("Редактор") {
-                SettingsCaption(text: "Инструменты (клавиши): выбор и перемещение V, стрелка A, прямоугольник R, овал O, линия L, карандаш P, маркер M, текст T, размытие B, нумерация N, обрезка C. ⇧ при рисовании — ровные линии и квадраты. ⌘Z / ⇧⌘Z — отмена и повтор, ⌘C — копировать, ⌘S — сохранить, ⇧⌘S — сохранить как. Размер изображения меняется кнопкой со стрелками.")
+            Section(L("Редактор")) {
+                SettingsCaption(text: L("Инструменты (клавиши): выбор и перемещение V, стрелка A, прямоугольник R, овал O, линия L, карандаш P, маркер M, текст T, размытие B, нумерация N, обрезка C. ⇧ при рисовании — ровные линии и квадраты. ⌘Z / ⇧⌘Z — отмена и повтор, ⌘C — копировать, ⌘S — сохранить, ⇧⌘S — сохранить как. Размер изображения меняется кнопкой со стрелками."))
             }
         }
         .formStyle(.grouped)
@@ -262,7 +262,7 @@ struct ScreenshotToolQuickView: View {
     @Bindable var module: ScreenshotToolModule
 
     var body: some View {
-        Picker("После выделения", selection: $module.settings.afterCapture) {
+        Picker(L("После выделения"), selection: $module.settings.afterCapture) {
             ForEach(ScreenshotAfterCapture.allCases) { Text($0.title).tag($0) }
         }
     }

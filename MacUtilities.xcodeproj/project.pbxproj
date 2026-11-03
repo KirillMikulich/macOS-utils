@@ -250,20 +250,20 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MacUtilities/MacUtilities.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 27;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Mac Utilities";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSUIElement = YES;
-				INFOPLIST_KEY_NSAppleEventsUsageDescription = "Mac Utilities просит Finder переместить в Корзину файлы удаляемой программы, которые принадлежат администратору.";
+				INFOPLIST_KEY_NSAppleEventsUsageDescription = "Mac Utilities asks Finder to move administrator-owned files of the app being uninstalled to the Trash. / Mac Utilities просит Finder переместить в Корзину файлы удаляемой программы, которые принадлежат администратору.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 0.4.21;
+				MARKETING_VERSION = 0.4.23;
 				PRODUCT_BUNDLE_IDENTIFIER = com.otvertka.Otvertka;
 				PRODUCT_MODULE_NAME = MacUtilities;
 				PRODUCT_NAME = "Mac Utilities";
@@ -281,20 +281,20 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MacUtilities/MacUtilities.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 27;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Mac Utilities";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSUIElement = YES;
-				INFOPLIST_KEY_NSAppleEventsUsageDescription = "Mac Utilities просит Finder переместить в Корзину файлы удаляемой программы, которые принадлежат администратору.";
+				INFOPLIST_KEY_NSAppleEventsUsageDescription = "Mac Utilities asks Finder to move administrator-owned files of the app being uninstalled to the Trash. / Mac Utilities просит Finder переместить в Корзину файлы удаляемой программы, которые принадлежат администратору.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 0.4.21;
+				MARKETING_VERSION = 0.4.23;
 				PRODUCT_BUNDLE_IDENTIFIER = com.otvertka.Otvertka;
 				PRODUCT_MODULE_NAME = MacUtilities;
 				PRODUCT_NAME = "Mac Utilities";
@@ -310,9 +310,9 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 4UX34MM52C;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 27;
 				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 0.4.21;
+				MARKETING_VERSION = 0.4.23;
 				PRODUCT_BUNDLE_IDENTIFIER = com.otvertka.MacUtilitiesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -328,9 +328,9 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 4UX34MM52C;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 27;
 				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 0.4.21;
+				MARKETING_VERSION = 0.4.23;
 				PRODUCT_BUNDLE_IDENTIFIER = com.otvertka.MacUtilitiesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;

@@ -10,8 +10,8 @@ enum WindowActivationScope: String, Codable, CaseIterable, Identifiable {
     var id: String { rawValue }
     var title: String {
         switch self {
-        case .selectedWindow: return "Только выбранное окно"
-        case .allAppWindows: return "Выбранное окно и остальные окна приложения"
+        case .selectedWindow: return L("Только выбранное окно")
+        case .allAppWindows: return L("Выбранное окно и остальные окна приложения")
         }
     }
 }

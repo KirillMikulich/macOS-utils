@@ -8,9 +8,9 @@ enum WindowSortOrder: String, Codable, CaseIterable, Identifiable {
     var id: String { rawValue }
     var title: String {
         switch self {
-        case .recentlyUsed: return "По недавнему использованию"
-        case .appName: return "По названию приложения"
-        case .windowTitle: return "По заголовку окна"
+        case .recentlyUsed: return L("По недавнему использованию")
+        case .appName: return L("По названию приложения")
+        case .windowTitle: return L("По заголовку окна")
         }
     }
 }
@@ -20,8 +20,8 @@ enum SwitcherLayout: String, Codable, CaseIterable, Identifiable {
     var id: String { rawValue }
     var title: String {
         switch self {
-        case .horizontal: return "Сетка миниатюр"
-        case .vertical: return "Вертикальный список"
+        case .horizontal: return L("Сетка миниатюр")
+        case .vertical: return L("Вертикальный список")
         }
     }
 }
@@ -31,9 +31,9 @@ enum OverlayPosition: String, Codable, CaseIterable, Identifiable {
     var id: String { rawValue }
     var title: String {
         switch self {
-        case .center: return "По центру"
-        case .top: return "Сверху"
-        case .bottom: return "Снизу"
+        case .center: return L("По центру")
+        case .top: return L("Сверху")
+        case .bottom: return L("Снизу")
         }
     }
 }

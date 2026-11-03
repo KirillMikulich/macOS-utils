@@ -10,17 +10,17 @@ enum AnnotationTool: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .move: return "Выбор и перемещение"
-        case .arrow: return "Стрелка"
-        case .rectangle: return "Прямоугольник"
-        case .ellipse: return "Овал"
-        case .line: return "Линия"
-        case .pen: return "Карандаш"
-        case .marker: return "Маркер"
-        case .text: return "Текст"
-        case .pixelate: return "Размытие (пикселизация)"
-        case .counter: return "Нумерация"
-        case .crop: return "Обрезка"
+        case .move: return L("Выбор и перемещение")
+        case .arrow: return L("Стрелка")
+        case .rectangle: return L("Прямоугольник")
+        case .ellipse: return L("Овал")
+        case .line: return L("Линия")
+        case .pen: return L("Карандаш")
+        case .marker: return L("Маркер")
+        case .text: return L("Текст")
+        case .pixelate: return L("Размытие (пикселизация)")
+        case .counter: return L("Нумерация")
+        case .crop: return L("Обрезка")
         }
     }
 
@@ -81,11 +81,11 @@ struct TextStyle: Equatable {
         var id: String { rawValue }
         var title: String {
             switch self {
-            case .regular: return "Обычный"
-            case .medium: return "Средний"
-            case .semibold: return "Полужирный"
-            case .bold: return "Жирный"
-            case .heavy: return "Очень жирный"
+            case .regular: return L("Обычный")
+            case .medium: return L("Средний")
+            case .semibold: return L("Полужирный")
+            case .bold: return L("Жирный")
+            case .heavy: return L("Очень жирный")
             }
         }
         var systemWeight: NSFont.Weight {

@@ -33,7 +33,7 @@ final class CommandTabInterceptor {
         guard let tap = CGEvent.tapCreate(tap: .cgSessionEventTap, place: .headInsertEventTap, options: .defaultTap,
                                           eventsOfInterest: mask, callback: callback,
                                           userInfo: Unmanaged.passUnretained(self).toOpaque()) else {
-            lastError = "Не удалось перехватить ⌘⇥ — проверьте доступ «Универсальный доступ»"
+            lastError = L("Не удалось перехватить ⌘⇥ — проверьте доступ «Универсальный доступ»")
             Log.shortcuts.error("CGEvent.tapCreate failed")
             return false
         }

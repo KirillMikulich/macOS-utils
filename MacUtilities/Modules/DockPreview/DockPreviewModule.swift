@@ -12,8 +12,8 @@ import SwiftUI
 @Observable
 final class DockPreviewModule: AppModule {
     let id = ModuleID.dockPreview
-    let title = "Превью в Dock"
-    let summary = "Миниатюры окон приложения при наведении на его значок в Dock и по горячей клавише."
+    var title: String { L("Превью в Dock") }
+    var summary: String { L("Миниатюры окон приложения при наведении на его значок в Dock и по горячей клавише.") }
     let systemImage = "dock.arrow.up.rectangle"
     let requiredPermissions: [PermissionKind] = [.accessibility]
     let optionalPermissions: [PermissionKind] = [.screenRecording]
@@ -70,7 +70,7 @@ final class DockPreviewModule: AppModule {
     }
 
     var shortcuts: [ModuleShortcutInfo] {
-        [ModuleShortcutInfo(id: .dockPreviewPanel, title: "Окна активного приложения", combo: settings.panelShortcut)]
+        [ModuleShortcutInfo(id: .dockPreviewPanel, title: L("Окна активного приложения"), combo: settings.panelShortcut)]
     }
 
     // MARK: - Lifecycle
@@ -98,7 +98,7 @@ final class DockPreviewModule: AppModule {
     }
 
     private func declareShortcut(active: Bool) {
-        context.shortcuts.update(.dockPreviewPanel, title: "Превью в Dock: окна активного приложения",
+        context.shortcuts.update(.dockPreviewPanel, title: L("Превью в Dock: окна активного приложения"),
                                  combo: settings.panelShortcut, active: active) { [weak self] in
             self?.toggleHotkeyPanel()
         }
@@ -270,7 +270,7 @@ final class DockPreviewModule: AppModule {
         var order: [String] = []
         var groups: [String: [WindowInfo]] = [:]
         for window in windows {
-            let name = window.isMinimized ? "Свёрнутые" : (window.screen?.localizedName ?? "Другой экран")
+            let name = window.isMinimized ? L("Свёрнутые") : (window.screen?.localizedName ?? L("Другой экран"))
             if groups[name] == nil { order.append(name) }
             groups[name, default: []].append(window)
         }

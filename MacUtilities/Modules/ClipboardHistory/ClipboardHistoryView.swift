@@ -12,15 +12,15 @@ struct ClipboardHistoryPanelView: View {
         VStack(spacing: 0) {
             HStack(spacing: 8) {
                 Image(systemName: "magnifyingglass").foregroundStyle(.secondary)
-                TextField("Поиск в истории", text: $model.query)
+                TextField(L("Поиск в истории"), text: $model.query)
                     .textFieldStyle(.plain)
                     .font(.system(size: 15))
                     .focused($searchFocused)
                 if module.settings.privateMode {
-                    Label("Приватно", systemImage: "eye.slash")
+                    Label(L("Приватно"), systemImage: "eye.slash")
                         .font(.caption)
                         .foregroundStyle(.orange)
-                        .help("Режим приватности: новые копирования не записываются")
+                        .help(L("Режим приватности: новые копирования не записываются"))
                 }
                 Button {
                     module.clearHistory(includingPinned: false)
@@ -31,16 +31,16 @@ struct ClipboardHistoryPanelView: View {
                 }
                 .buttonStyle(.borderless)
                 .disabled(module.store.unpinnedItems.isEmpty)
-                .help("Очистить историю (закреплённые останутся)")
+                .help(L("Очистить историю (закреплённые останутся)"))
             }
             .padding(12)
 
             Divider()
 
             if items.isEmpty {
-                ContentUnavailableView(model.query.isEmpty ? "История пуста" : "Ничего не найдено",
+                ContentUnavailableView(model.query.isEmpty ? L("История пуста") : L("Ничего не найдено"),
                                        systemImage: model.query.isEmpty ? "doc.on.clipboard" : "magnifyingglass",
-                                       description: Text(model.query.isEmpty ? "Скопируйте что-нибудь — элемент появится здесь." : ""))
+                                       description: Text(model.query.isEmpty ? L("Скопируйте что-нибудь — элемент появится здесь.") : ""))
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
                 ScrollViewReader { proxy in
@@ -127,18 +127,18 @@ struct ClipboardItemRow: View {
                 if let onPaste {
                     Button(action: onPaste) { Image(systemName: "arrow.down.doc") }
                         .buttonStyle(.borderless)
-                        .help("Вставить в активное приложение")
+                        .help(L("Вставить в активное приложение"))
                 }
                 if let onCopy {
                     Button(action: onCopy) { Image(systemName: "doc.on.doc") }
                         .buttonStyle(.borderless)
-                        .help("Скопировать в буфер (вставить потом — ⌘V)")
+                        .help(L("Скопировать в буфер (вставить потом — ⌘V)"))
                 }
                 Button { module.store.togglePin(item.id) } label: {
                     Image(systemName: item.isPinned ? "pin.slash" : "pin")
                 }
                 .buttonStyle(.borderless)
-                .help(item.isPinned ? "Открепить (⌘P)" : "Закрепить — не удаляется лимитом и очисткой (⌘P)")
+                .help(item.isPinned ? L("Открепить (⌘P)") : L("Закрепить — не удаляется лимитом и очисткой (⌘P)"))
             }
         }
         .padding(.horizontal, 8)
@@ -157,10 +157,10 @@ struct ClipboardItemRow: View {
         case .files:
             return item.previewText.split(separator: "\n").map { ($0 as NSString).lastPathComponent }.joined(separator: ", ")
         case .image:
-            return item.imageSizeDescription.map { "Изображение \($0)" } ?? item.previewText
+            return item.imageSizeDescription.map { L("Изображение \($0)") } ?? item.previewText
         default:
             let text = item.previewText.trimmingCharacters(in: .whitespacesAndNewlines)
-            return text.isEmpty ? "(пробелы)" : text.replacingOccurrences(of: "\n", with: " ⏎ ")
+            return text.isEmpty ? L("(пробелы)") : text.replacingOccurrences(of: "\n", with: " ⏎ ")
         }
     }
 

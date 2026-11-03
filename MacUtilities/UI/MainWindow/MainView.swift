@@ -61,15 +61,15 @@ struct MainView: View {
                 }
             }
         case .general:
-            page("Основные", "Запуск, значки и оформление панелей", "gearshape", .gray) {
+            page(L("Основные"), L("Запуск, значки и оформление панелей"), "gearshape", .gray) {
                 GeneralSettingsView(coordinator: coordinator)
             }
         case .permissions:
-            page("Разрешения", "Доступы macOS, которые нужны модулям", "lock.shield", .green) {
+            page(L("Разрешения"), L("Доступы macOS, которые нужны модулям"), "lock.shield", .green) {
                 PermissionsView(coordinator: coordinator)
             }
         case .about:
-            page("О программе", "Версия, данные и использованный код", "info.circle", .gray) {
+            page(L("О программе"), L("Версия, данные и использованный код"), "info.circle", .gray) {
                 AboutView(coordinator: coordinator)
             }
         }
@@ -123,7 +123,7 @@ private struct Sidebar: View {
                     .frame(width: 30, height: 30)
                 VStack(alignment: .leading, spacing: 0) {
                     Text("Mac Utilities").font(.headline)
-                    Text("набор утилит").font(.caption).foregroundStyle(.secondary)
+                    Text(L("набор утилит")).font(.caption).foregroundStyle(.secondary)
                 }
             }
             .padding(.horizontal, 18)
@@ -132,9 +132,9 @@ private struct Sidebar: View {
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 2) {
-                    row(.dashboard, "Обзор", "square.grid.2x2", .blue)
+                    row(.dashboard, L("Обзор"), "square.grid.2x2", .blue)
 
-                    groupTitle("Модули")
+                    groupTitle(L("Модули"))
                     ForEach(coordinator.registry.modules, id: \.id) { module in
                         row(.module(module.id), module.title, module.systemImage, module.id.tint) {
                             Circle()
@@ -145,16 +145,16 @@ private struct Sidebar: View {
                         }
                     }
 
-                    groupTitle("Приложение")
-                    row(.general, "Основные", "gearshape", .gray)
-                    row(.permissions, "Разрешения", "lock.shield", .green) {
+                    groupTitle(L("Приложение"))
+                    row(.general, L("Основные"), "gearshape", .gray)
+                    row(.permissions, L("Разрешения"), "lock.shield", .green) {
                         if missingPermissions {
                             Image(systemName: "exclamationmark.triangle.fill")
                                 .font(.caption)
                                 .foregroundStyle(.orange)
                         }
                     }
-                    row(.about, "О программе", "info.circle", .gray)
+                    row(.about, L("О программе"), "info.circle", .gray)
                 }
                 .padding(.horizontal, 10)
                 .padding(.bottom, 12)
@@ -208,7 +208,7 @@ private struct Sidebar: View {
         } label: {
             HStack(spacing: 8) {
                 Image(systemName: paused ? "play.fill" : "pause.fill")
-                Text(paused ? "Возобновить модули" : "Пауза всех модулей")
+                Text(paused ? L("Возобновить модули") : L("Пауза всех модулей"))
                 Spacer()
             }
             .font(.callout.weight(.medium))

@@ -60,7 +60,7 @@ final class ScreenshotWatcher {
             return
         }
         guard descriptor >= 0 else {
-            lastError = "Нет доступа к папке снимков: \(directory.path)"
+            lastError = L("Нет доступа к папке снимков: \(directory.path)")
             Log.clipboard.error("Screenshot watcher: cannot open \(directory.path, privacy: .public)")
             return
         }

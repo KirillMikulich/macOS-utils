@@ -93,15 +93,15 @@ struct WindowThumbnailCell: View {
             .overlay(alignment: .topTrailing) {
                 if let actions, isSelected || isHovered {
                     HStack(spacing: 4) {
-                        actionButton("minus", help: "Свернуть окно (⌥M)") { actions.minimize(window) }
+                        actionButton("minus", help: L("Свернуть окно (⌥M)")) { actions.minimize(window) }
                             .disabled(window.isMinimized)
-                        actionButton("power", help: "Завершить «\(window.appName)» со всеми окнами (⌥Q)") { actions.quitApp(window) }
+                        actionButton("power", help: L("Завершить «\(window.appName)» со всеми окнами (⌥Q)")) { actions.quitApp(window) }
                         if QuitOnClosePolicy.closeQuitsApp(window) {
                             // Последнее окно: «Автовыход» завершит приложение после закрытия.
-                            actionButton("xmark", help: "Это последнее окно — после закрытия «Автовыход» завершит «\(window.appName)» (⌥W)",
+                            actionButton("xmark", help: L("Это последнее окно — после закрытия «Автовыход» завершит «\(window.appName)» (⌥W)"),
                                          tint: .orange) { actions.close(window) }
                         } else {
-                            actionButton("xmark", help: "Закрыть только это окно (⌥W)", tint: .red) { actions.close(window) }
+                            actionButton("xmark", help: L("Закрыть только это окно (⌥W)"), tint: .red) { actions.close(window) }
                         }
                     }
                     .padding(style.cellPadding + 4)
@@ -152,7 +152,7 @@ struct WindowThumbnailCell: View {
                         Spacer()
                         HStack {
                             Spacer()
-                            Label(window.isMinimized ? "Свёрнуто" : "Скрыто", systemImage: window.isMinimized ? "minus.square" : "eye.slash")
+                            Label(window.isMinimized ? L("Свёрнуто") : L("Скрыто"), systemImage: window.isMinimized ? "minus.square" : "eye.slash")
                                 .font(.caption2)
                                 .padding(.horizontal, 5)
                                 .padding(.vertical, 2)
@@ -192,18 +192,18 @@ struct ThumbnailAppearanceControls<Settings: ThumbnailAppearanceSettings>: View 
 
     var body: some View {
         ThumbnailAppearancePreview(style: settings.thumbnailStyle)
-        Toggle("Показывать миниатюры окон", isOn: $settings.showThumbnails)
+        Toggle(L("Показывать миниатюры окон"), isOn: $settings.showThumbnails)
         SettingsCaption(text: settings.showThumbnails
-            ? "Миниатюры требуют разрешения «Запись экрана»; без него вместо них показываются значки."
-            : "Вместо миниатюр показываются только значки приложений — компактно и без «Записи экрана».")
+            ? L("Миниатюры требуют разрешения «Запись экрана»; без него вместо них показываются значки.")
+            : L("Вместо миниатюр показываются только значки приложений — компактно и без «Записи экрана»."))
         if settings.showThumbnails {
-            slider("Размер миниатюр", value: $settings.thumbnailSize, range: ThumbnailAppearanceRange.thumbnail, step: 4, unit: "pt")
+            slider(L("Размер миниатюр"), value: $settings.thumbnailSize, range: ThumbnailAppearanceRange.thumbnail, step: 4, unit: "pt")
         }
-        slider("Размер значка", value: $settings.iconSize, range: ThumbnailAppearanceRange.icon, step: 2, unit: "pt")
-        slider("Отступ внутри ячейки", value: $settings.cellPadding, range: ThumbnailAppearanceRange.cellPadding, step: 1, unit: "pt")
-        slider("Расстояние между ячейками", value: $settings.itemSpacing, range: ThumbnailAppearanceRange.spacing, step: 1, unit: "pt")
-        slider("Отступ панели", value: $settings.panelPadding, range: ThumbnailAppearanceRange.panelPadding, step: 1, unit: "pt")
-        Toggle("Показывать заголовки окон", isOn: $settings.showTitles)
+        slider(L("Размер значка"), value: $settings.iconSize, range: ThumbnailAppearanceRange.icon, step: 2, unit: "pt")
+        slider(L("Отступ внутри ячейки"), value: $settings.cellPadding, range: ThumbnailAppearanceRange.cellPadding, step: 1, unit: "pt")
+        slider(L("Расстояние между ячейками"), value: $settings.itemSpacing, range: ThumbnailAppearanceRange.spacing, step: 1, unit: "pt")
+        slider(L("Отступ панели"), value: $settings.panelPadding, range: ThumbnailAppearanceRange.panelPadding, step: 1, unit: "pt")
+        Toggle(L("Показывать заголовки окон"), isOn: $settings.showTitles)
     }
 
     private func slider(_ title: String, value: Binding<Double>, range: ClosedRange<Double>, step: Double, unit: String) -> some View {
@@ -233,7 +233,7 @@ struct ThumbnailAppearancePreview: View {
         let height = style.cellHeight + style.panelPadding * 2
         let scale = min(1, maxWidth / max(width, 1))
         VStack(alignment: .leading, spacing: 6) {
-            Text("Предпросмотр").font(.caption).foregroundStyle(.secondary)
+            Text(L("Предпросмотр")).font(.caption).foregroundStyle(.secondary)
             HStack(spacing: style.spacing) {
                 ForEach(Array(windows.enumerated()), id: \.element.id) { index, window in
                     WindowThumbnailCell(window: window, image: nil, isSelected: index == 1, style: style)

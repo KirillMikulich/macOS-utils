@@ -8,8 +8,8 @@ import UniformTypeIdentifiers
 @Observable
 final class ClipboardHistoryModule: AppModule {
     let id = ModuleID.clipboardHistory
-    let title = "Буфер обмена"
-    let summary = "История буфера обмена: текст, ссылки, форматированный текст, изображения и файлы."
+    var title: String { L("Буфер обмена") }
+    var summary: String { L("История буфера обмена: текст, ссылки, форматированный текст, изображения и файлы.") }
     let systemImage = "list.clipboard"
     let requiredPermissions: [PermissionKind] = []
     var optionalPermissions: [PermissionKind] { settings.selectionAction == .copyAndPaste ? [.accessibility] : [] }
@@ -54,7 +54,7 @@ final class ClipboardHistoryModule: AppModule {
     }
 
     var shortcuts: [ModuleShortcutInfo] {
-        [ModuleShortcutInfo(id: .clipboardPanel, title: "Панель истории буфера", combo: settings.shortcut)]
+        [ModuleShortcutInfo(id: .clipboardPanel, title: L("Панель истории буфера"), combo: settings.shortcut)]
     }
 
     // MARK: - Lifecycle
@@ -79,7 +79,7 @@ final class ClipboardHistoryModule: AppModule {
     }
 
     private func declareShortcut(active: Bool) {
-        context.shortcuts.update(.clipboardPanel, title: "Панель истории буфера", combo: settings.shortcut,
+        context.shortcuts.update(.clipboardPanel, title: L("Панель истории буфера"), combo: settings.shortcut,
                                  active: active) { [weak self] in
             self?.panel.toggle()
         }
@@ -103,21 +103,21 @@ final class ClipboardHistoryModule: AppModule {
 
     private func captureCurrentPasteboard() {
         if settings.privateMode {
-            lastEvent = "Пропущено: включён режим приватности"
+            lastEvent = L("Пропущено: включён режим приватности")
             return
         }
         let frontmost = NSWorkspace.shared.frontmostApplication
         if let bundleID = frontmost?.bundleIdentifier, settings.excludedBundleIDs.contains(bundleID) {
-            lastEvent = "Пропущено: приложение \(frontmost?.localizedName ?? bundleID) в исключениях"
+            lastEvent = L("Пропущено: приложение \(frontmost?.localizedName ?? bundleID) в исключениях")
             return
         }
         switch ClipboardContentReader.read(monitor.pasteboard, options: ClipboardReaderOptions(settings: settings)) {
         case .content(let content):
             let item = store.add(content, sourceBundleID: frontmost?.bundleIdentifier, sourceAppName: frontmost?.localizedName)
             thumbnails.remove(item.id)
-            lastEvent = "Сохранено: \(content.kind.title.lowercased())"
+            lastEvent = L("Сохранено: \(content.kind.title.lowercased())")
         case .empty:
-            lastEvent = "Буфер пуст"
+            lastEvent = L("Буфер пуст")
         case .skipped(let reason):
             lastEvent = Self.describe(reason)
             Log.clipboard.info("Skipped clipboard change: \(reason.rawValue, privacy: .public)")
@@ -129,7 +129,7 @@ final class ClipboardHistoryModule: AppModule {
     private func captureScreenshotFile(_ url: URL) {
         guard !settings.privateMode, settings.saveImages else { return }
         guard let data = try? Data(contentsOf: url) else {
-            lastEvent = "Не удалось прочитать снимок экрана"
+            lastEvent = L("Не удалось прочитать снимок экрана")
             return
         }
         guard data.count <= settings.maxItemBytes else {
@@ -140,24 +140,24 @@ final class ClipboardHistoryModule: AppModule {
         guard let content = ClipboardContentReader.analyze(items: [
             CapturedPasteboardItem(representations: [ClipboardRepresentation(type: type, data: data)]),
         ]) else { return }
-        let item = store.add(content, sourceBundleID: "com.apple.screencaptureui", sourceAppName: "Снимок экрана")
+        let item = store.add(content, sourceBundleID: "com.apple.screencaptureui", sourceAppName: L("Снимок экрана"))
         thumbnails.remove(item.id)
         if settings.copyScreenshotsToClipboard {
             // Изображение (а не ссылка на файл) — так ⌘V вставляет картинку в чаты, документы и редакторы.
             restore(item, paste: false)
-            lastEvent = "Снимок экрана скопирован в буфер: \(url.lastPathComponent)"
+            lastEvent = L("Снимок экрана скопирован в буфер: \(url.lastPathComponent)")
         } else {
-            lastEvent = "Сохранён снимок экрана: \(url.lastPathComponent)"
+            lastEvent = L("Сохранён снимок экрана: \(url.lastPathComponent)")
         }
     }
 
     private static func describe(_ reason: ClipboardSkipReason) -> String {
         switch reason {
-        case .concealed: return "Пропущено: данные помечены приложением как секретные"
-        case .transient: return "Пропущено: временные данные"
-        case .tooLarge: return "Пропущено: размер превышает лимит"
-        case .imagesDisabled: return "Пропущено: сохранение изображений выключено"
-        case .unsupported: return "Пропущено: неподдерживаемый формат"
+        case .concealed: return L("Пропущено: данные помечены приложением как секретные")
+        case .transient: return L("Пропущено: временные данные")
+        case .tooLarge: return L("Пропущено: размер превышает лимит")
+        case .imagesDisabled: return L("Пропущено: сохранение изображений выключено")
+        case .unsupported: return L("Пропущено: неподдерживаемый формат")
         }
     }
 
@@ -168,7 +168,7 @@ final class ClipboardHistoryModule: AppModule {
     @discardableResult
     func restore(_ item: ClipboardItem, paste: Bool, into target: NSRunningApplication? = nil) -> Bool {
         guard let content = store.content(for: item) else {
-            lastEvent = "Данные элемента недоступны"
+            lastEvent = L("Данные элемента недоступны")
             NSSound.beep()
             return false
         }
@@ -178,7 +178,7 @@ final class ClipboardHistoryModule: AppModule {
 
         if paste {
             guard AXIsProcessTrusted() else {
-                lastEvent = "Автовставка недоступна: нет разрешения Accessibility. Элемент скопирован — нажмите ⌘V."
+                lastEvent = L("Автовставка недоступна: нет разрешения Accessibility. Элемент скопирован — нажмите ⌘V.")
                 context.permissions.request(.accessibility)
                 return true
             }

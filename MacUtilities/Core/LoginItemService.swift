@@ -17,11 +17,11 @@ final class LoginItemService {
 
     var statusDescription: String {
         switch status {
-        case .enabled: return "Включено"
-        case .notRegistered: return "Выключено"
-        case .requiresApproval: return "Требует подтверждения в Системных настройках → Основные → Объекты входа"
-        case .notFound: return "Служба не найдена (запустите приложение из папки «Программы»)"
-        @unknown default: return "Неизвестно"
+        case .enabled: return L("Включено")
+        case .notRegistered: return L("Выключено")
+        case .requiresApproval: return L("Требует подтверждения в Системных настройках → Основные → Объекты входа")
+        case .notFound: return L("Служба не найдена (запустите приложение из папки «Программы»)")
+        @unknown default: return L("Неизвестно")
         }
     }
 

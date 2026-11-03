@@ -19,27 +19,27 @@ struct AboutView: View {
                         .frame(width: 72, height: 72)
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Mac Utilities").font(.title.weight(.semibold))
-                        Text("Версия \(version)").foregroundStyle(.secondary)
-                        Text("Набор системных утилит для macOS: история буфера обмена, переключатель окон и предпросмотр окон из Dock.")
+                        Text(L("Версия \(version)")).foregroundStyle(.secondary)
+                        Text(L("Набор системных утилит для macOS: история буфера обмена, переключатель окон и предпросмотр окон из Dock."))
                             .font(.callout)
                     }
                 }
                 .padding(.vertical, 6)
             }
-            Section("Приватность") {
-                Text("Приложение работает полностью локально: нет сетевых запросов, аналитики и облачной синхронизации. Содержимое буфера и изображения окон не покидают этот Mac.")
+            Section(L("Приватность")) {
+                Text(L("Приложение работает полностью локально: нет сетевых запросов, аналитики и облачной синхронизации. Содержимое буфера и изображения окон не покидают этот Mac."))
             }
-            Section("Использованный код") {
+            Section(L("Использованный код")) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Плавная прокрутка колесом мыши — Mos, автор Caldis")
+                    Text(L("Плавная прокрутка колесом мыши — Mos, автор Caldis"))
                     Link("https://github.com/Caldis/Mos", destination: URL(string: "https://github.com/Caldis/Mos")!)
-                    Text("Лицензия CC BY-NC 4.0 (некоммерческое использование с указанием автора). Перенесены интерполяция, сглаживающий фильтр, значения по умолчанию и доставка событий; изменения — объединение в один модуль и русские комментарии.")
+                    Text(L("Лицензия CC BY-NC 4.0 (некоммерческое использование с указанием автора). Перенесены интерполяция, сглаживающий фильтр, значения по умолчанию и доставка событий; изменения — объединение в один модуль и русские комментарии."))
                         .font(.caption).foregroundStyle(.secondary)
                 }
             }
-            Section("Системные возможности") {
-                LabeledContent("Поиск CGWindowID окна",
-                               value: AX.hasPrivateWindowIDLookup ? "_AXUIElementGetWindow (недокументированный API)" : "Сопоставление по рамке окна")
+            Section(L("Системные возможности")) {
+                LabeledContent(L("Поиск CGWindowID окна"),
+                               value: AX.hasPrivateWindowIDLookup ? L("_AXUIElementGetWindow (недокументированный API)") : L("Сопоставление по рамке окна"))
                 LabeledContent("macOS", value: ProcessInfo.processInfo.operatingSystemVersionString)
             }
         }

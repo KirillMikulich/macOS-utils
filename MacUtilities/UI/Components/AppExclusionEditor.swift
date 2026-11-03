@@ -5,7 +5,7 @@ import UniformTypeIdentifiers
 /// Редактор списка приложений-исключений (по bundle identifier).
 struct AppExclusionEditor: View {
     @Binding var bundleIDs: [String]
-    var emptyText = "Исключений нет"
+    var emptyText = L("Исключений нет")
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
@@ -27,11 +27,11 @@ struct AppExclusionEditor: View {
                     }
                     .buttonStyle(.borderless)
                     .foregroundStyle(.secondary)
-                    .help("Убрать из исключений")
+                    .help(L("Убрать из исключений"))
                 }
             }
             HStack {
-                Menu("Добавить запущенное") {
+                Menu(L("Добавить запущенное")) {
                     ForEach(runningApps, id: \.bundleIdentifier) { app in
                         Button(app.localizedName ?? app.bundleIdentifier ?? "") {
                             add(app.bundleIdentifier)
@@ -39,7 +39,7 @@ struct AppExclusionEditor: View {
                     }
                 }
                 .fixedSize()
-                Button("Выбрать приложение…", action: chooseApp)
+                Button(L("Выбрать приложение…"), action: chooseApp)
             }
         }
     }

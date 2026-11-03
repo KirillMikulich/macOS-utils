@@ -241,7 +241,7 @@ final class EditorCanvasView: NSView, NSTextFieldDelegate {
         field.isBordered = false
         field.drawsBackground = false
         field.focusRingType = .none
-        field.placeholderString = "Текст"
+        field.placeholderString = L("Текст")
         field.delegate = self
         field.cell?.wraps = false
         field.cell?.isScrollable = true

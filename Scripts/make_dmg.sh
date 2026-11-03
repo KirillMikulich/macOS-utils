@@ -33,6 +33,7 @@ rm -rf "$STAGING" "$DMG"
 mkdir -p "$STAGING"
 cp -R "$APP" "$STAGING/"
 ln -s /Applications "$STAGING/Applications"
+cp "$ROOT/Scripts/INSTALL.en.txt" "$STAGING/How to install.txt"
 cp "$ROOT/Scripts/INSTALL.txt" "$STAGING/Как установить.txt"
 
 hdiutil create -volname "Mac Utilities $VERSION" -srcfolder "$STAGING" -ov -format UDZO "$DMG" >/dev/null

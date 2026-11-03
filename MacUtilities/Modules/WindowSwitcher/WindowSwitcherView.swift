@@ -66,7 +66,7 @@ struct WindowSwitcherView: View {
                     .frame(width: style.showThumbnails ? style.iconSize * 1.6 : style.iconSize, height: style.iconSize)
                     VStack(alignment: .leading, spacing: 1) {
                         Text(window.displayTitle).lineLimit(1)
-                        Text(window.isMinimized ? "\(window.appName) · свёрнуто" : window.appName)
+                        Text(window.isMinimized ? L("\(window.appName) · свёрнуто") : window.appName)
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }

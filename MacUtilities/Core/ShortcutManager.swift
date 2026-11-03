@@ -33,13 +33,13 @@ enum ShortcutStatus: Equatable {
 
     var message: String {
         switch self {
-        case .notSet: return "Не назначено"
-        case .inactive: return "Неактивно (модуль выключен)"
-        case .registered: return "Активно"
-        case .conflict(let other): return "Конфликт: уже используется для «\(other)»"
-        case .systemReserved(let name): return "Занято системой: \(name)"
-        case .invalid: return "Нужен хотя бы один модификатор ⌘, ⌥ или ⌃"
-        case .failed(let code): return "Не удалось зарегистрировать (код \(code))"
+        case .notSet: return L("Не назначено")
+        case .inactive: return L("Неактивно (модуль выключен)")
+        case .registered: return L("Активно")
+        case .conflict(let other): return L("Конфликт: уже используется для «\(other)»")
+        case .systemReserved(let name): return L("Занято системой: \(name)")
+        case .invalid: return L("Нужен хотя бы один модификатор ⌘, ⌥ или ⌃")
+        case .failed(let code): return L("Не удалось зарегистрировать (код \(code))")
         }
     }
 }

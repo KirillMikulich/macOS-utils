@@ -1,0 +1,25 @@
+Mac Utilities — installation
+
+1. Drag Mac Utilities.app into the Applications folder.
+
+2. First launch. The app is signed with a developer certificate but is not notarized by Apple,
+   so macOS blocks it the first time. You only need to do this once:
+   - open Mac Utilities from Applications — a warning appears, click “Done”;
+   - System Settings → Privacy & Security → at the bottom, “Mac Utilities was blocked…”
+     → “Open Anyway” → confirm with your password.
+   (Terminal alternative: xattr -dr com.apple.quarantine "/Applications/Mac Utilities.app")
+
+3. A wrench-and-screwdriver icon appears in the menu bar and the settings window opens.
+   Clipboard History works right away: ⌥⇧V opens the history panel.
+
+4. The window switcher (⌘⇥) and Dock window previews are turned on in the settings window.
+   macOS will ask for permissions:
+   - Accessibility — required (window switching, watching the Dock, auto-paste);
+   - Screen & System Audio Recording — for window thumbnails (relaunch Mac Utilities after granting).
+   On the first screenshot macOS may ask for access to the Desktop —
+   this is needed for screenshots to appear in the clipboard history.
+
+The interface is in English by default; switch to Russian in General → Language.
+
+All data stays on this Mac (~/Library/Application Support/Mac Utilities);
+the app does not use the network.

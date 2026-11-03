@@ -53,9 +53,9 @@ enum LeftoverMatch: String {
 
     var title: String {
         switch self {
-        case .bundleID: return "по идентификатору"
-        case .name: return "по названию"
-        case .team: return "общая папка разработчика"
+        case .bundleID: return L("по идентификатору")
+        case .name: return L("по названию")
+        case .team: return L("общая папка разработчика")
         }
     }
 }
@@ -88,29 +88,29 @@ struct LeftoverScanner {
     }
 
     private static let userLocations: [Location] = [
-        Location(path: "Application Support", category: "Данные приложения", matchByName: true),
-        Location(path: "Caches", category: "Кэш", matchByName: true),
-        Location(path: "Preferences", category: "Настройки", matchByName: false),
-        Location(path: "Preferences/ByHost", category: "Настройки", matchByName: false),
-        Location(path: "Containers", category: "Контейнер (песочница)", matchByName: false),
-        Location(path: "Group Containers", category: "Общий контейнер", matchByName: false),
-        Location(path: "Saved Application State", category: "Состояние окон", matchByName: false),
-        Location(path: "Logs", category: "Журналы", matchByName: true),
-        Location(path: "HTTPStorages", category: "Сетевые данные", matchByName: false),
-        Location(path: "WebKit", category: "Веб-данные", matchByName: false),
+        Location(path: "Application Support", category: L("Данные приложения"), matchByName: true),
+        Location(path: "Caches", category: L("Кэш"), matchByName: true),
+        Location(path: "Preferences", category: L("Настройки"), matchByName: false),
+        Location(path: "Preferences/ByHost", category: L("Настройки"), matchByName: false),
+        Location(path: "Containers", category: L("Контейнер (песочница)"), matchByName: false),
+        Location(path: "Group Containers", category: L("Общий контейнер"), matchByName: false),
+        Location(path: "Saved Application State", category: L("Состояние окон"), matchByName: false),
+        Location(path: "Logs", category: L("Журналы"), matchByName: true),
+        Location(path: "HTTPStorages", category: L("Сетевые данные"), matchByName: false),
+        Location(path: "WebKit", category: L("Веб-данные"), matchByName: false),
         Location(path: "Cookies", category: "Cookies", matchByName: false),
-        Location(path: "LaunchAgents", category: "Автозапуск", matchByName: false),
-        Location(path: "Application Scripts", category: "Скрипты", matchByName: false),
+        Location(path: "LaunchAgents", category: L("Автозапуск"), matchByName: false),
+        Location(path: "Application Scripts", category: L("Скрипты"), matchByName: false),
     ]
 
     private static let systemLocations: [Location] = [
-        Location(path: "Application Support", category: "Данные (для всех пользователей)", matchByName: true),
-        Location(path: "Caches", category: "Кэш (для всех пользователей)", matchByName: false),
-        Location(path: "Preferences", category: "Настройки (для всех пользователей)", matchByName: false),
-        Location(path: "LaunchAgents", category: "Автозапуск (для всех пользователей)", matchByName: false),
-        Location(path: "LaunchDaemons", category: "Системная служба", matchByName: false),
-        Location(path: "PrivilegedHelperTools", category: "Вспомогательный инструмент", matchByName: false),
-        Location(path: "Logs", category: "Журналы (для всех пользователей)", matchByName: true),
+        Location(path: "Application Support", category: L("Данные (для всех пользователей)"), matchByName: true),
+        Location(path: "Caches", category: L("Кэш (для всех пользователей)"), matchByName: false),
+        Location(path: "Preferences", category: L("Настройки (для всех пользователей)"), matchByName: false),
+        Location(path: "LaunchAgents", category: L("Автозапуск (для всех пользователей)"), matchByName: false),
+        Location(path: "LaunchDaemons", category: L("Системная служба"), matchByName: false),
+        Location(path: "PrivilegedHelperTools", category: L("Вспомогательный инструмент"), matchByName: false),
+        Location(path: "Logs", category: L("Журналы (для всех пользователей)"), matchByName: true),
     ]
 
     func scan(_ app: AppBundleInfo) -> [LeftoverItem] {

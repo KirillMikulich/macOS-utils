@@ -22,9 +22,9 @@ struct DashboardView: View {
                 if coordinator.registry.isPaused {
                     HStack {
                         Image(systemName: "pause.circle.fill").foregroundStyle(.orange)
-                        Text("Все модули приостановлены. Настройки включения сохранены.")
+                        Text(L("Все модули приостановлены. Настройки включения сохранены."))
                         Spacer()
-                        Button("Возобновить") { coordinator.registry.setPaused(false) }
+                        Button(L("Возобновить")) { coordinator.registry.setPaused(false) }
                     }
                     .padding(12)
                     .background(.orange.opacity(0.1), in: RoundedRectangle(cornerRadius: 10))
@@ -68,15 +68,15 @@ struct DashboardView: View {
                 .shadow(color: .black.opacity(0.25), radius: 6, y: 3)
             VStack(alignment: .leading, spacing: 4) {
                 Text("Mac Utilities").font(.largeTitle.weight(.bold))
-                Text(coordinator.registry.isPaused ? "Все модули на паузе" : "Всё под рукой — выберите модуль, чтобы настроить")
+                Text(coordinator.registry.isPaused ? L("Все модули на паузе") : L("Всё под рукой — выберите модуль, чтобы настроить"))
                     .foregroundStyle(.secondary)
             }
             Spacer(minLength: 12)
             HStack(spacing: 10) {
-                StatTile(value: running, title: "работают", color: .green)
-                StatTile(value: off, title: "выключены", color: .secondary)
+                StatTile(value: running, title: L("работают"), color: .green)
+                StatTile(value: off, title: L("выключены"), color: .secondary)
                 if attention > 0 {
-                    StatTile(value: attention, title: "требуют внимания", color: .orange)
+                    StatTile(value: attention, title: L("требуют внимания"), color: .orange)
                 }
             }
         }
@@ -183,7 +183,7 @@ struct ModuleCard: View {
             HStack {
                 Spacer()
                 Button(action: openDetails) {
-                    Label("Настроить", systemImage: "chevron.right")
+                    Label(L("Настроить"), systemImage: "chevron.right")
                         .labelStyle(TrailingIconLabelStyle())
                 }
                 .buttonStyle(.borderedProminent)
@@ -213,7 +213,7 @@ struct ModuleCard: View {
     private var statusText: String {
         switch module.runState {
         case .waitingForPermissions(let kinds):
-            return "Ожидает разрешения: " + kinds.map { $0 == .accessibility ? "Accessibility" : "Screen Recording" }.joined(separator: ", ")
+            return L("Ожидает разрешения: ") + kinds.map { $0 == .accessibility ? "Accessibility" : "Screen Recording" }.joined(separator: ", ")
         default:
             return module.runState.title
         }

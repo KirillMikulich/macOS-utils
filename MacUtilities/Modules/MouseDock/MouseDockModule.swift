@@ -15,8 +15,8 @@ import SwiftUI
 @Observable
 final class MouseDockModule: AppModule {
     let id = ModuleID.mouseDock
-    let title = "Мышь и Dock"
-    let summary = "Плавная прокрутка колесом мыши и своё направление (отдельно от трекпада); Dock выезжает без задержки."
+    var title: String { L("Мышь и Dock") }
+    var summary: String { L("Плавная прокрутка колесом мыши и своё направление (отдельно от трекпада); Dock выезжает без задержки.") }
     let systemImage = "computermouse"
     /// Колесо перехватывается, только если включены плавность или переворот направления.
     var wheelActive: Bool {

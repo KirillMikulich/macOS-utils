@@ -9,10 +9,10 @@ struct OverlayStyleSettings: Codable, Equatable {
         var id: String { rawValue }
         var title: String {
             switch self {
-            case .glass: return "Стекло"
-            case .dark: return "Тёмная"
-            case .light: return "Светлая"
-            case .solid: return "Плотная"
+            case .glass: return L("Стекло")
+            case .dark: return L("Тёмная")
+            case .light: return L("Светлая")
+            case .solid: return L("Плотная")
             }
         }
     }
@@ -22,14 +22,14 @@ struct OverlayStyleSettings: Codable, Equatable {
         var id: String { rawValue }
         var title: String {
             switch self {
-            case .system: return "Как в системе"
-            case .blue: return "Синий"
-            case .purple: return "Фиолетовый"
-            case .pink: return "Розовый"
-            case .red: return "Красный"
-            case .orange: return "Оранжевый"
-            case .green: return "Зелёный"
-            case .graphite: return "Графит"
+            case .system: return L("Как в системе")
+            case .blue: return L("Синий")
+            case .purple: return L("Фиолетовый")
+            case .pink: return L("Розовый")
+            case .red: return L("Красный")
+            case .orange: return L("Оранжевый")
+            case .green: return L("Зелёный")
+            case .graphite: return L("Графит")
             }
         }
         var color: Color {

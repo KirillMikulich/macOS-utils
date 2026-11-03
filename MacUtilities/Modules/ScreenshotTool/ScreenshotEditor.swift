@@ -26,7 +26,7 @@ final class ScreenshotEditorController: NSObject, NSWindowDelegate, ObservableOb
                           styleMask: [.titled, .closable, .resizable, .miniaturizable],
                           backing: .buffered, defer: false)
         window.isReleasedWhenClosed = false
-        window.title = "Снимок — \(image.width)×\(image.height)"
+        window.title = L("Снимок — \(image.width)×\(image.height)")
         window.contentMinSize = NSSize(width: 620, height: 360)
         super.init()
         window.delegate = self
@@ -58,17 +58,17 @@ final class ScreenshotEditorController: NSObject, NSWindowDelegate, ObservableOb
         if module.settings.closeEditorAfterCopy {
             close()
         } else {
-            status = "Скопировано в буфер"
+            status = L("Скопировано в буфер")
         }
     }
 
     func save() {
         do {
             let url = try document.save(in: module.saveFolder)
-            status = "Сохранено: \(url.lastPathComponent)"
+            status = L("Сохранено: \(url.lastPathComponent)")
             lastSavedURL = url
         } catch {
-            status = "Не удалось сохранить: \(error.localizedDescription)"
+            status = L("Не удалось сохранить: \(error.localizedDescription)")
         }
     }
 
@@ -76,15 +76,15 @@ final class ScreenshotEditorController: NSObject, NSWindowDelegate, ObservableOb
         let panel = NSSavePanel()
         panel.allowedContentTypes = [.png]
         panel.directoryURL = module.saveFolder
-        panel.nameFieldStringValue = "Снимок.png"
+        panel.nameFieldStringValue = L("Снимок.png")
         panel.beginSheetModal(for: window) { [weak self] response in
             guard response == .OK, let url = panel.url, let self else { return }
             do {
                 try self.document.save(to: url)
-                self.status = "Сохранено: \(url.lastPathComponent)"
+                self.status = L("Сохранено: \(url.lastPathComponent)")
                 self.lastSavedURL = url
             } catch {
-                self.status = "Не удалось сохранить: \(error.localizedDescription)"
+                self.status = L("Не удалось сохранить: \(error.localizedDescription)")
             }
         }
     }
@@ -92,7 +92,7 @@ final class ScreenshotEditorController: NSObject, NSWindowDelegate, ObservableOb
     @Published var lastSavedURL: URL?
 
     func updateTitle() {
-        window.title = "Снимок — \(document.image.width)×\(document.image.height)"
+        window.title = L("Снимок — \(document.image.width)×\(document.image.height)")
     }
 }
 
@@ -137,23 +137,23 @@ struct ScreenshotEditorView: View {
                 Button { document.undo() } label: { Image(systemName: "arrow.uturn.backward") }
                     .keyboardShortcut("z", modifiers: .command)
                     .disabled(!document.canUndo)
-                    .help("Отменить (⌘Z)")
+                    .help(L("Отменить (⌘Z)"))
                 Button { document.redo() } label: { Image(systemName: "arrow.uturn.forward") }
                     .keyboardShortcut("z", modifiers: [.command, .shift])
                     .disabled(!document.canRedo)
-                    .help("Повторить (⇧⌘Z)")
+                    .help(L("Повторить (⇧⌘Z)"))
                 Menu {
                     ForEach([25, 50, 75], id: \.self) { percent in
                         Button("\(percent)%") { document.resize(scale: CGFloat(percent) / 100) }
                     }
                     Divider()
-                    Button("Задать ширину…") { showResize = true }
+                    Button(L("Задать ширину…")) { showResize = true }
                 } label: {
                     Image(systemName: "aspectratio")
                 }
                 .menuStyle(.borderlessButton)
                 .fixedSize()
-                .help("Изменить размер изображения")
+                .help(L("Изменить размер изображения"))
             }
 
             // Строка 2: стиль и действия.
@@ -165,22 +165,22 @@ struct ScreenshotEditorView: View {
                     Slider(value: $document.lineWidth, in: 1...30).frame(minWidth: 70, maxWidth: 110)
                     NumberField(value: $document.lineWidth, range: 1...30, width: 38)
                 }
-                .help("Толщина стрелок, линий и фигур — меняет и выбранную пометку")
+                .help(L("Толщина стрелок, линий и фигур — меняет и выбранную пометку"))
 
                 HStack(spacing: 4) {
                     Image(systemName: "textformat.size").foregroundStyle(.secondary)
                     Slider(value: $document.fontSize, in: 8...160).frame(minWidth: 70, maxWidth: 110)
                     NumberField(value: $document.fontSize, range: 8...160, width: 44)
                 }
-                .help("Размер текста — меняет и выбранный или набираемый текст")
+                .help(L("Размер текста — меняет и выбранный или набираемый текст"))
 
                 Spacer(minLength: 8)
 
-                Button("Сохранить как…") { controller.saveAs() }
+                Button(L("Сохранить как…")) { controller.saveAs() }
                     .keyboardShortcut("s", modifiers: [.command, .shift])
-                Button("Сохранить") { controller.save() }
+                Button(L("Сохранить")) { controller.save() }
                     .keyboardShortcut("s", modifiers: .command)
-                Button("Копировать") { controller.copy() }
+                Button(L("Копировать")) { controller.copy() }
                     .keyboardShortcut("c", modifiers: .command)
                     .buttonStyle(.borderedProminent)
             }
@@ -197,8 +197,8 @@ struct ScreenshotEditorView: View {
         .padding(.vertical, 8)
         .popover(isPresented: $showResize) {
             HStack {
-                TextField("Ширина, px", text: $customWidth).frame(width: 110)
-                Button("Применить") {
+                TextField(L("Ширина, px"), text: $customWidth).frame(width: 110)
+                Button(L("Применить")) {
                     if let width = Double(customWidth), width > 0 {
                         document.resize(scale: width / Double(document.pixelSize.width))
                     }
@@ -214,12 +214,12 @@ struct ScreenshotEditorView: View {
         HStack {
             Text("\(Int(document.pixelSize.width))×\(Int(document.pixelSize.height)) px")
                 .monospacedDigit()
-            Text("· щелчок по пометке — выбрать и изменить · ⇧ — ровные линии · буквы — инструменты")
+            Text(L("· щелчок по пометке — выбрать и изменить · ⇧ — ровные линии · буквы — инструменты"))
             Spacer()
             if let status = controller.status {
                 Text(status)
                 if let url = controller.lastSavedURL {
-                    Button("Показать в Finder") { NSWorkspace.shared.activateFileViewerSelecting([url]) }
+                    Button(L("Показать в Finder")) { NSWorkspace.shared.activateFileViewerSelecting([url]) }
                         .buttonStyle(.link)
                 }
             }
@@ -253,7 +253,7 @@ private struct ColorSwatchButton: View {
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .help("Цвет")
+        .help(L("Цвет"))
         .popover(isPresented: $isPresented, arrowEdge: .bottom) {
             VStack(alignment: .leading, spacing: 10) {
                 LazyVGrid(columns: Array(repeating: GridItem(.fixed(24), spacing: 8), count: 6), spacing: 8) {
@@ -271,7 +271,7 @@ private struct ColorSwatchButton: View {
                         .buttonStyle(.plain)
                     }
                 }
-                ColorPicker("Другой цвет…", selection: Binding(get: { Color(nsColor: color) }, set: { color = NSColor($0) }))
+                ColorPicker(L("Другой цвет…"), selection: Binding(get: { Color(nsColor: color) }, set: { color = NSColor($0) }))
             }
             .padding(12)
         }
@@ -291,17 +291,17 @@ private struct TextStyleControls: View {
             }
             .labelsHidden()
             .frame(width: 120)
-            .help("Начертание")
+            .help(L("Начертание"))
 
             Toggle(isOn: $style.italic) { Image(systemName: "italic") }
                 .toggleStyle(.button)
-                .help("Курсив")
+                .help(L("Курсив"))
             Toggle(isOn: $style.outline) { Image(systemName: "character.textbox") }
                 .toggleStyle(.button)
-                .help("Контур вокруг букв")
+                .help(L("Контур вокруг букв"))
             Toggle(isOn: $style.background) { Image(systemName: "rectangle.fill") }
                 .toggleStyle(.button)
-                .help("Подложка под текстом")
+                .help(L("Подложка под текстом"))
         }
     }
 }
@@ -325,7 +325,7 @@ private struct FontFamilyButton: View {
     var body: some View {
         Button { isPresented.toggle() } label: {
             HStack(spacing: 4) {
-                Text(family ?? "Системный")
+                Text(family ?? L("Системный"))
                     .font(family.map { Font.custom($0, size: 13) } ?? .system(size: 13))
                     .lineLimit(1)
                 Image(systemName: "chevron.down").font(.caption2).foregroundStyle(.secondary)
@@ -334,23 +334,23 @@ private struct FontFamilyButton: View {
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .help("Шрифт")
+        .help(L("Шрифт"))
         .popover(isPresented: $isPresented, arrowEdge: .bottom) {
             VStack(spacing: 0) {
-                TextField("Поиск шрифта", text: $query)
+                TextField(L("Поиск шрифта"), text: $query)
                     .textFieldStyle(.roundedBorder)
                     .padding(10)
                 Divider()
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 0) {
                         if query.isEmpty {
-                            row(title: "Системный", font: .system(size: 15), selected: family == nil) { family = nil }
+                            row(title: L("Системный"), font: .system(size: 15), selected: family == nil) { family = nil }
                         }
                         ForEach(filtered, id: \.self) { name in
                             row(title: name, font: .custom(name, size: 15), selected: family == name) { family = name }
                         }
                         if filtered.isEmpty {
-                            Text("Ничего не найдено").foregroundStyle(.secondary).padding(12)
+                            Text(L("Ничего не найдено")).foregroundStyle(.secondary).padding(12)
                         }
                     }
                 }

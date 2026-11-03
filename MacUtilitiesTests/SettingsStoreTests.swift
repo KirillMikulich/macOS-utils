@@ -127,3 +127,29 @@ final class SettingsStoreTests: XCTestCase {
         XCTAssertEqual(SettingsStore(directory: directory).load(GeneralSettings.self), general)
     }
 }
+
+@MainActor
+final class LocalizationTests: XCTestCase {
+    override func tearDown() {
+        Localization.shared.language = .english
+        super.tearDown()
+    }
+
+    func testEnglishTranslationIsLoadedAndApplied() {
+        Localization.shared.language = .english
+        XCTAssertTrue(Localization.shared.hasEnglish("Основные"))
+        XCTAssertEqual(L("Основные"), "General")
+        Localization.shared.language = .russian
+        XCTAssertEqual(L("Основные"), "Основные")
+    }
+
+    func testInterpolatedArgumentsAreSubstitutedInOrder() {
+        Localization.shared.language = .russian
+        let running = 3, total = 7
+        XCTAssertEqual(L("Работает модулей: \(running) из \(total)"), "Работает модулей: 3 из 7")
+    }
+
+    func testDefaultLanguageIsEnglish() {
+        XCTAssertEqual(GeneralSettings().language, .english)
+    }
+}
