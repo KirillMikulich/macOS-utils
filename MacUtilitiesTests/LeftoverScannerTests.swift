@@ -1,5 +1,5 @@
 import XCTest
-@testable import Otvertka
+@testable import MacUtilities
 
 final class LeftoverScannerTests: XCTestCase {
     private var root: URL!

@@ -1,6 +1,6 @@
 import CoreGraphics
 import XCTest
-@testable import Otvertka
+@testable import MacUtilities
 
 final class WheelReverseTests: XCTestCase {
     func testNegateFlipsAllDeltaFields() throws {

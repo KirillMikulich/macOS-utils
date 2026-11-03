@@ -1,17 +1,17 @@
 import AppKit
-@testable import Otvertka
+@testable import MacUtilities
 
 enum TestSupport {
     static func temporaryDirectory() -> URL {
         let url = FileManager.default.temporaryDirectory
-            .appendingPathComponent("OtvertkaTests-\(UUID().uuidString)", isDirectory: true)
+            .appendingPathComponent("MacUtilitiesTests-\(UUID().uuidString)", isDirectory: true)
         try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true)
         return url
     }
 
     /// Отдельный именованный буфер: тесты не трогают системный буфер пользователя.
     static func privatePasteboard() -> NSPasteboard {
-        NSPasteboard(name: NSPasteboard.Name("OtvertkaTests-\(UUID().uuidString)"))
+        NSPasteboard(name: NSPasteboard.Name("MacUtilitiesTests-\(UUID().uuidString)"))
     }
 
     static func pngData(width: Int = 12, height: Int = 8, color: NSColor = .systemBlue) -> Data {

@@ -1,9 +1,9 @@
-# Архитектура Otvertka
+# Архитектура Mac Utilities
 
 ## Структура
 
 ```
-Otvertka/
+MacUtilities/
   App/                     точка входа, AppDelegate, координатор, строка меню, главное окно
   Core/
     ModuleProtocol.swift   протокол AppModule + общий жизненный цикл
@@ -23,14 +23,14 @@ Otvertka/
     DockPreview/           наблюдатель Dock, модуль, UI
   UI/                      главное окно, Dashboard, общие настройки, разрешения, компоненты
   Resources/               Assets.xcassets (иконка)
-OtvertkaTests/         XCTest
+MacUtilitiesTests/     XCTest
 ```
 
 Правило: системная логика, хранение данных и SwiftUI-представления лежат в разных файлах. Чистая логика (`ClipboardContentReader.analyze`, `ClipboardStore`, `WindowListBuilder`, `SwitcherSession`, `SettingsStore`) не зависит от UI и покрыта тестами.
 
 ## Жизненный цикл
 
-- Используется AppKit-жизненный цикл (`@main enum OtvertkaMain` → `AppDelegate`), а не SwiftUI `App`: так проще не открывать окно при фоновом запуске, переключать значок в Dock и работать вообще без окон. SwiftUI используется для содержимого окон и панелей (`NSHostingView`).
+- Используется AppKit-жизненный цикл (`@main enum MacUtilitiesMain` → `AppDelegate`), а не SwiftUI `App`: так проще не открывать окно при фоновом запуске, переключать значок в Dock и работать вообще без окон. SwiftUI используется для содержимого окон и панелей (`NSHostingView`).
 - `AppCoordinator` создаёт сервисы и модули, применяет общие настройки (Dock, строка меню, тема), открывает главное окно.
 - Приложение — агент (`LSUIElement = YES`): по умолчанию нет значка в Dock. Значок включается в настройках (`NSApp.setActivationPolicy(.regular)`).
 - При запуске хостом XCTest модули не стартуют (`AppPaths.isRunningTests`).
@@ -106,7 +106,7 @@ OtvertkaTests/         XCTest
 ## Как добавить новый модуль
 
 1. Добавьте случай в `ModuleID` (`Core/ModuleProtocol.swift`).
-2. Создайте папку `Otvertka/Modules/<Name>/` (Xcode подхватит файлы автоматически).
+2. Создайте папку `MacUtilities/Modules/<Name>/` (Xcode подхватит файлы автоматически).
 3. Настройки:
    ```swift
    struct MyToolSettings: PersistedSettings {
@@ -144,4 +144,4 @@ OtvertkaTests/         XCTest
    }
    ```
 5. Зарегистрируйте модуль в `AppCoordinator.init`: `registry.register(MyToolModule(context: context))`. Он автоматически появится в боковой панели, на Dashboard, в меню строки меню и в разделе «Разрешения».
-6. Чистую логику вынесите в отдельный тип и покройте тестами в `OtvertkaTests/`.
+6. Чистую логику вынесите в отдельный тип и покройте тестами в `MacUtilitiesTests/`.

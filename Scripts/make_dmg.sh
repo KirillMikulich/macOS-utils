@@ -10,7 +10,7 @@ STAGING="$BUILD/dmg-staging"
 
 # Каждая сборка получает новый номер: последняя цифра версии и номер сборки +1
 # (0.4.0 (4) → 0.4.1 (5)). Отключить: NO_BUMP=1 Scripts/make_dmg.sh
-PBXPROJ="$ROOT/Otvertka.xcodeproj/project.pbxproj"
+PBXPROJ="$ROOT/MacUtilities.xcodeproj/project.pbxproj"
 if [[ -z "${NO_BUMP:-}" ]]; then
   CURRENT=$(grep -m1 -o 'MARKETING_VERSION = [0-9.]*' "$PBXPROJ" | awk '{print $3}')
   BUILD_NUMBER=$(grep -m1 -o 'CURRENT_PROJECT_VERSION = [0-9]*' "$PBXPROJ" | awk '{print $3}')
@@ -20,7 +20,7 @@ if [[ -z "${NO_BUMP:-}" ]]; then
   echo "Версия: $CURRENT ($BUILD_NUMBER) → $NEXT ($NEXT_BUILD)" >&2
 fi
 
-xcodebuild -project "$ROOT/Otvertka.xcodeproj" -scheme Otvertka -configuration Release \
+xcodebuild -project "$ROOT/MacUtilities.xcodeproj" -scheme MacUtilities -configuration Release \
   -derivedDataPath "$BUILD/DerivedData" build | grep -E "error|BUILD" || true
 [[ -d "$APP" ]] || { echo "Сборка не найдена: $APP" >&2; exit 1; }
 

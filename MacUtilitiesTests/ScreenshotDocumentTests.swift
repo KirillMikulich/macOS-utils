@@ -1,6 +1,6 @@
 import AppKit
 import XCTest
-@testable import Otvertka
+@testable import MacUtilities
 
 @MainActor
 final class ScreenshotDocumentTests: XCTestCase {

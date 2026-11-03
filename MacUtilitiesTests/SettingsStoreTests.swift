@@ -1,5 +1,5 @@
 import XCTest
-@testable import Otvertka
+@testable import MacUtilities
 
 /// Тестовая модель с миграцией: в v1 поле называлось `size`, в v2 — `thumbnailSize`.
 private struct MigratingSettings: PersistedSettings {

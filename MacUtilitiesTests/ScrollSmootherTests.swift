@@ -1,5 +1,5 @@
 import XCTest
-@testable import Otvertka
+@testable import MacUtilities
 
 final class ScrollSmootherTests: XCTestCase {
     private func run(_ smoother: inout ScrollSmoother, frames: Int = 300) -> (x: Int, y: Int, frames: Int) {

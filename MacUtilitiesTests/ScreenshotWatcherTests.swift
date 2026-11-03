@@ -1,5 +1,5 @@
 import XCTest
-@testable import Otvertka
+@testable import MacUtilities
 
 @MainActor
 final class ScreenshotWatcherTests: XCTestCase {

@@ -1,6 +1,6 @@
 import AppKit
 import XCTest
-@testable import Otvertka
+@testable import MacUtilities
 
 final class ClipboardReaderWriterTests: XCTestCase {
     private var pasteboard: NSPasteboard!

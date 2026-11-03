@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A1000000000000000000A001"
                BuildableName = "Mac Utilities.app"
-               BlueprintName = "Otvertka"
-               ReferencedContainer = "container:Otvertka.xcodeproj">
+               BlueprintName = "MacUtilities"
+               ReferencedContainer = "container:MacUtilities.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A1000000000000000000A002"
-               BuildableName = "OtvertkaTests.xctest"
-               BlueprintName = "OtvertkaTests"
-               ReferencedContainer = "container:Otvertka.xcodeproj">
+               BuildableName = "MacUtilitiesTests.xctest"
+               BlueprintName = "MacUtilitiesTests"
+               ReferencedContainer = "container:MacUtilities.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -56,8 +56,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A1000000000000000000A001"
             BuildableName = "Mac Utilities.app"
-            BlueprintName = "Otvertka"
-            ReferencedContainer = "container:Otvertka.xcodeproj">
+            BlueprintName = "MacUtilities"
+            ReferencedContainer = "container:MacUtilities.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -73,8 +73,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A1000000000000000000A001"
             BuildableName = "Mac Utilities.app"
-            BlueprintName = "Otvertka"
-            ReferencedContainer = "container:Otvertka.xcodeproj">
+            BlueprintName = "MacUtilities"
+            ReferencedContainer = "container:MacUtilities.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

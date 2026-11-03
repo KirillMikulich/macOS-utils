@@ -1,6 +1,6 @@
 // Генерирует иконку Mac Utilities для Assets.xcassets: тонкий контурный ключ с отвёрткой
 // с сине-фиолетовым градиентом на тёмной плашке с мягкой цветной подсветкой — в стиле значков разделов.
-// Запуск: swift Scripts/make_icon.swift Otvertka/Resources/Assets.xcassets/AppIcon.appiconset
+// Запуск: swift Scripts/make_icon.swift MacUtilities/Resources/Assets.xcassets/AppIcon.appiconset
 import AppKit
 
 func render(size: Int) -> Data {

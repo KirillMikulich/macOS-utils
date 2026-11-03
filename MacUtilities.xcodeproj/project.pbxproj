@@ -12,24 +12,24 @@
 			containerPortal = A10000000000000000000001 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = A1000000000000000000A001;
-			remoteInfo = Otvertka;
+			remoteInfo = MacUtilities;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		A1000000000000000000F001 /* Mac Utilities.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mac Utilities.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A1000000000000000000F002 /* OtvertkaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OtvertkaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1000000000000000000F002 /* MacUtilitiesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacUtilitiesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		A1000000000000000000E001 /* Otvertka */ = {
+		A1000000000000000000E001 /* MacUtilities */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Otvertka;
+			path = MacUtilities;
 			sourceTree = "<group>";
 		};
-		A1000000000000000000E002 /* OtvertkaTests */ = {
+		A1000000000000000000E002 /* MacUtilitiesTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = OtvertkaTests;
+			path = MacUtilitiesTests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -55,8 +55,8 @@
 		A10000000000000000000002 = {
 			isa = PBXGroup;
 			children = (
-				A1000000000000000000E001 /* Otvertka */,
-				A1000000000000000000E002 /* OtvertkaTests */,
+				A1000000000000000000E001 /* MacUtilities */,
+				A1000000000000000000E002 /* MacUtilitiesTests */,
 				A10000000000000000000003 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -65,7 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				A1000000000000000000F001 /* Mac Utilities.app */,
-				A1000000000000000000F002 /* OtvertkaTests.xctest */,
+				A1000000000000000000F002 /* MacUtilitiesTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -73,9 +73,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A1000000000000000000A001 /* Otvertka */ = {
+		A1000000000000000000A001 /* MacUtilities */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A1000000000000000000D101 /* Build configuration list for PBXNativeTarget "Otvertka" */;
+			buildConfigurationList = A1000000000000000000D101 /* Build configuration list for PBXNativeTarget "MacUtilities" */;
 			buildPhases = (
 				A1000000000000000000B002 /* Sources */,
 				A1000000000000000000B001 /* Frameworks */,
@@ -86,16 +86,16 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				A1000000000000000000E001 /* Otvertka */,
+				A1000000000000000000E001 /* MacUtilities */,
 			);
-			name = Otvertka;
-			productName = Otvertka;
+			name = MacUtilities;
+			productName = MacUtilities;
 			productReference = A1000000000000000000F001 /* Mac Utilities.app */;
 			productType = "com.apple.product-type.application";
 		};
-		A1000000000000000000A002 /* OtvertkaTests */ = {
+		A1000000000000000000A002 /* MacUtilitiesTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A1000000000000000000D201 /* Build configuration list for PBXNativeTarget "OtvertkaTests" */;
+			buildConfigurationList = A1000000000000000000D201 /* Build configuration list for PBXNativeTarget "MacUtilitiesTests" */;
 			buildPhases = (
 				A1000000000000000000B012 /* Sources */,
 				A1000000000000000000B011 /* Frameworks */,
@@ -107,11 +107,11 @@
 				A1000000000000000000C002 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				A1000000000000000000E002 /* OtvertkaTests */,
+				A1000000000000000000E002 /* MacUtilitiesTests */,
 			);
-			name = OtvertkaTests;
-			productName = OtvertkaTests;
-			productReference = A1000000000000000000F002 /* OtvertkaTests.xctest */;
+			name = MacUtilitiesTests;
+			productName = MacUtilitiesTests;
+			productReference = A1000000000000000000F002 /* MacUtilitiesTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -133,7 +133,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A1000000000000000000D001 /* Build configuration list for PBXProject "Otvertka" */;
+			buildConfigurationList = A1000000000000000000D001 /* Build configuration list for PBXProject "MacUtilities" */;
 			developmentRegion = ru;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -148,8 +148,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A1000000000000000000A001 /* Otvertka */,
-				A1000000000000000000A002 /* OtvertkaTests */,
+				A1000000000000000000A001 /* MacUtilities */,
+				A1000000000000000000A002 /* MacUtilitiesTests */,
 			);
 		};
 /* End PBXProject section */
@@ -191,7 +191,7 @@
 /* Begin PBXTargetDependency section */
 		A1000000000000000000C002 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A1000000000000000000A001 /* Otvertka */;
+			target = A1000000000000000000A001 /* MacUtilities */;
 			targetProxy = A1000000000000000000C001 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -248,7 +248,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 4UX34MM52C;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Otvertka/Otvertka.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MacUtilities/MacUtilities.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 25;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -265,7 +265,7 @@
 				);
 				MARKETING_VERSION = 0.4.21;
 				PRODUCT_BUNDLE_IDENTIFIER = com.otvertka.Otvertka;
-				PRODUCT_MODULE_NAME = Otvertka;
+				PRODUCT_MODULE_NAME = MacUtilities;
 				PRODUCT_NAME = "Mac Utilities";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -279,7 +279,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 4UX34MM52C;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Otvertka/Otvertka.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MacUtilities/MacUtilities.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 25;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -296,7 +296,7 @@
 				);
 				MARKETING_VERSION = 0.4.21;
 				PRODUCT_BUNDLE_IDENTIFIER = com.otvertka.Otvertka;
-				PRODUCT_MODULE_NAME = Otvertka;
+				PRODUCT_MODULE_NAME = MacUtilities;
 				PRODUCT_NAME = "Mac Utilities";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -313,7 +313,7 @@
 				CURRENT_PROJECT_VERSION = 25;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 0.4.21;
-				PRODUCT_BUNDLE_IDENTIFIER = com.otvertka.OtvertkaTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.otvertka.MacUtilitiesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -331,7 +331,7 @@
 				CURRENT_PROJECT_VERSION = 25;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 0.4.21;
-				PRODUCT_BUNDLE_IDENTIFIER = com.otvertka.OtvertkaTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.otvertka.MacUtilitiesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -342,7 +342,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A1000000000000000000D001 /* Build configuration list for PBXProject "Otvertka" */ = {
+		A1000000000000000000D001 /* Build configuration list for PBXProject "MacUtilities" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A1000000000000000000D002 /* Debug */,
@@ -351,7 +351,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A1000000000000000000D101 /* Build configuration list for PBXNativeTarget "Otvertka" */ = {
+		A1000000000000000000D101 /* Build configuration list for PBXNativeTarget "MacUtilities" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A1000000000000000000D102 /* Debug */,
@@ -360,7 +360,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A1000000000000000000D201 /* Build configuration list for PBXNativeTarget "OtvertkaTests" */ = {
+		A1000000000000000000D201 /* Build configuration list for PBXNativeTarget "MacUtilitiesTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A1000000000000000000D202 /* Debug */,

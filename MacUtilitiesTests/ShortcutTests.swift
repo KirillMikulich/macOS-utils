@@ -1,6 +1,6 @@
 import Carbon.HIToolbox
 import XCTest
-@testable import Otvertka
+@testable import MacUtilities
 
 final class KeyComboTests: XCTestCase {
     func testDisplayString() {

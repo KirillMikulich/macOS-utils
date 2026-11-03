@@ -1,5 +1,5 @@
 import XCTest
-@testable import Otvertka
+@testable import MacUtilities
 
 private final class FakeDock: DockPreferenceBackend {
     var values: [String: Double] = [:]
